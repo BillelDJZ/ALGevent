@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALGevent — Confirmation par SMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="center-wrap">
+    <header>
+      <div class="logo">
+        <span class="a">A</span><span class="l">L</span><span class="g">G</span><span class="event">event</span>
+      </div>
+      <div class="header-actions">
+        <a href="connexion.html" class="login">Retour à la connexion</a>
+      </div>
+    </header>
+
+    <main class="auth-shell">
+      <div class="auth-box">
+        <div class="auth-head">
+          <span class="eyebrow">Vérification</span>
+          <h1>Confirmez votre numéro</h1>
+          <p class="sub">Un code à 6 chiffres a été envoyé par SMS au <strong id="phone-number">06 •• •• •• 12</strong>.</p>
+        </div>
+
+        <div class="ticket">
+          <form id="otp-form">
+            <div class="otp-row" id="otp-row">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 1">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 2">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 3">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 4">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 5">
+              <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 6">
+            </div>
+            <p class="field-hint" style="text-align:center;">
+              Code non reçu ? <a href="#" id="resend-link">Renvoyer dans <span id="countdown">00:45</span></a>
+            </p>
+            <button type="submit" class="btn btn-gold btn-block" style="margin-top:12px;">Valider le code</button>
+          </form>
+
+          <div class="perforation"></div>
+          <div class="ticket-stub-row">
+            <span>ALGEVENT · SÉCURITÉ</span>
+            <span>VÉRIF. SMS</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap" style="display:flex;justify-content:space-between;">
+        <span class="mono">© 2026 ALGevent</span>
+        <span class="mono">Connexion sécurisée</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const inputs = Array.from(document.querySelectorAll('#otp-row input'));
+    inputs.forEach((input, i) => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, '');
+        if(input.value && i < inputs.length - 1){ inputs[i+1].focus(); }
+      });
+      input.addEventListener('keydown', (e) => {
+        if(e.key === 'Backspace' && !input.value && i > 0){ inputs[i-1].focus(); }
+      });
+    });
+
+    let seconds = 45;
+    const countdownEl = document.getElementById('countdown');
+    const resendLink = document.getElementById('resend-link');
+    const timer = setInterval(() => {
+      seconds--;
+      if(seconds <= 0){
+        clearInterval(timer);
+        countdownEl.parentElement.textContent = '';
+        resendLink.textContent = 'Renvoyer le code';
+        resendLink.style.pointerEvents = 'auto';
+      } else {
+        const m = String(Math.floor(seconds/60)).padStart(2,'0');
+        const s = String(seconds%60).padStart(2,'0');
+        countdownEl.textContent = m + ':' + s;
+      }
+    }, 1000);
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

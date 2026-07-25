@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription Fournisseur · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="a">A</span><span class="l">L</span><span class="g">G</span><span class="event">event</span>
+    </div>
+    <div class="header-actions">
+      <a href="connexion.html" class="login">Se connecter</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="signup-box">
+      <h1>Créer mon compte</h1>
+      <p class="sub">Inscrivez votre entreprise et présentez vos services.</p>
+      <form action="verify.html" method="get">
+        <div class="form-group">
+          <label for="entreprise">Nom de l'entreprise</label>
+          <input type="text" id="entreprise" name="entreprise" placeholder="Votre société" required />
+        </div>
+        <div class="form-group">
+          <label for="categorie">Catégorie de service</label>
+          <select id="categorie" name="categorie" required>
+            <option value="">Sélectionnez</option>
+            <option value="traiteur">Traiteur</option>
+            <option value="decoration">Décoration</option>
+            <option value="dj">DJ / Animation</option>
+            <option value="photographie">Photographe / Vidéaste</option>
+            <option value="location">Location de matériel</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="email">Adresse courriel professionnelle</label>
+          <input type="email" id="email" name="email" placeholder="contact@entreprise.fr" required />
+        </div>
+        <div class="form-group">
+          <label for="telephone">Numéro de téléphone</label>
+          <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6" />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirmer le mot de passe</label>
+          <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required minlength="6" />
+        </div>
+        <button type="submit" class="btn-primary btn-block">Créer mon compte fournisseur</button>
+      </form>
+
+      <div class="signup-footer">
+        Vous avez déjà un compte ? <a href="connexion.html">Se connecter</a>
+      </div>
+      <div class="back-link">
+        Vous êtes une salle d'événements ? <a href="signup.html">Inscrivez-vous ici</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="mono">ALGEVENT — © 2026</span>
+    <span class="mono">SALLES · FOURNISSEURS · ÉVÉNEMENTS</span>
+  </footer>
+  <script src="../js/script.js"></script>
+</body>
+</html>

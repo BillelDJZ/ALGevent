@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salles des fêtes – Top 10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body { background: #f6f9fc; padding: 24px; }
+    .container { max-width: 1280px; width: 100%; margin: 0 auto; }
+    .category-header { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); border-radius: 24px; padding: 28px 36px; color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; box-shadow: 0 12px 30px rgba(37, 117, 252, 0.25); }
+    .category-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.3px; }
+    .category-header .badge { background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); padding: 8px 20px; border-radius: 40px; font-size: 14px; font-weight: 600; }
+    .filter-bar { background: white; padding: 16px 24px; border-radius: 60px; box-shadow: 0 4px 14px rgba(0,0,0,0.04); margin-bottom: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; border: 1px solid #eef2f6; }
+    .wilaya-btn { background: #f8fafc; border: 1.5px solid #e2e8f0; padding: 6px 18px; border-radius: 40px; font-size: 14px; font-weight: 500; color: #475569; cursor: pointer; transition: all 0.2s; }
+    .wilaya-btn:hover { background: #eef2ff; border-color: #818cf8; color: #4f46e5; }
+    .wilaya-btn.active { background: #4f46e5; border-color: #4f46e5; color: white; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 26px; }
+    .card { background: white; border-radius: 24px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid #edf2f7; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,0,0,0.07); }
+    .card-image { width: 100%; height: 160px; background: linear-gradient(145deg, #f1f5f9, #e2e8f0); border-radius: 16px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+    .card-title { font-size: 19px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+    .card-location { font-size: 14px; color: #64748b; margin-bottom: 10px; }
+    .stars { color: #fbbf24; font-size: 18px; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="category-header">
+      <div>
+        <h1>🎉 Salles des fêtes</h1>
+        <div style="font-size: 16px; opacity: 0.85;">Trouvez la salle parfaite pour vos événements</div>
+      </div>
+      <div class="badge">⭐ Top 10 des meilleures notes</div>
+    </div>
+
+    <div class="filter-bar">
+      <span style="font-weight: 600; color: #1e293b;">📍 Choisir la wilaya :</span>
+      <button class="wilaya-btn active" data-wilaya="all">🏠 Toutes</button>
+      <button class="wilaya-btn" data-wilaya="Alger">Alger</button>
+      <button class="wilaya-btn" data-wilaya="Oran">Oran</button>
+      <button class="wilaya-btn" data-wilaya="Constantine">Constantine</button>
+      <button class="wilaya-btn" data-wilaya="Blida">Blida</button>
+    </div>
+
+    <div class="grid" id="cardGrid"></div>
+  </div>
+
+  <script>
+    const salles = [
+      { id: 1, nom: "Salle des Étoiles", wilaya: "Alger", note: 4.9, avis: 124, image: "🌟" },
+      { id: 2, nom: "Palais des Fêtes", wilaya: "Oran", note: 4.8, avis: 98, image: "🏛️" },
+      { id: 3, nom: "Jardin d'Éden", wilaya: "Constantine", note: 4.8, avis: 76, image: "🌿" },
+      { id: 4, nom: "Salle Royale", wilaya: "Blida", note: 4.7, avis: 112, image: "👑" },
+      { id: 5, nom: "Le Grand Salon", wilaya: "Alger", note: 4.7, avis: 89, image: "🛋️" },
+      { id: 6, nom: "Espace Céleste", wilaya: "Oran", note: 4.6, avis: 134, image: "🌌" },
+      { id: 7, nom: "Salle des Miroirs", wilaya: "Constantine", note: 4.6, avis: 65, image: "🪞" },
+      { id: 8, nom: "Villa des Orangers", wilaya: "Blida", note: 4.5, avis: 72, image: "🍊" },
+      { id: 9, nom: "Salle Impériale", wilaya: "Alger", note: 4.5, avis: 43, image: "🏰" },
+      { id: 10, nom: "Le Festin", wilaya: "Oran", note: 4.4, avis: 201, image: "🍽️" }
+    ];
+
+    function getStars(note) {
+      const full = Math.floor(note);
+      const half = (note - full) >= 0.5 ? 1 : 0;
+      const empty = 5 - full - half;
+      return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+    }
+
+    function renderCards(filterWilaya = 'all') {
+      const grid = document.getElementById('cardGrid');
+      let filtered = salles;
+      if (filterWilaya !== 'all') { filtered = salles.filter(s => s.wilaya === filterWilaya); }
+      filtered.sort((a, b) => b.note - a.note);
+
+      let html = '';
+      filtered.forEach((s, index) => {
+        const starsStr = getStars(s.note);
+        html += `<div class="card"><div class="card-image">${s.image}</div><div class="card-title">${s.nom}</div><div class="card-location">📍 ${s.wilaya}</div><div style="color: #fbbf24; font-size: 14px; margin-bottom: 6px;"><span class="stars">${starsStr}</span><span style="color: #0f172a; font-weight: 700;">${s.note.toFixed(1)}</span><span style="color: #94a3b8;">(${s.avis} avis)</span></div></div>`;
+      });
+      grid.innerHTML = html;
+    }
+
+    const wilayaBtns = document.querySelectorAll('.wilaya-btn');
+    wilayaBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        wilayaBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderCards(this.dataset.wilaya);
+      });
+    });
+
+    renderCards('all');
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

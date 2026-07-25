@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ALGevent - Accueil Client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body { background:#f2f4f8;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px; }
+    .app-container { max-width: 420px; width: 100%; background: #ffffff; border-radius: 32px; padding: 24px 20px 32px; box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15); margin: 0 auto; }
+    .field-label { font-size: 15px; font-weight: 600; color: #1f2937; display: block; margin: 24px 0 6px; }
+    .custom-select { width: 100%; padding: 14px 16px; font-size: 15px; border: 2px solid #e5e7eb; border-radius: 16px; background: #fafbfc; color: #1f2937; cursor: pointer; transition: border 0.2s; }
+    .custom-select:focus { border-color: #4a6cf7; outline: none; }
+    .grid-title { margin: 24px 0 12px; font-size: 15px; font-weight: 600; color: #1f2937; }
+    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .service-card { background: #fafbfc; border: 2px solid #e5e7eb; border-radius: 16px; padding: 18px 8px; text-align: center; cursor: pointer; transition: all 0.15s ease; user-select: none; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .service-card i { font-size: 26px; color: #6b7280; transition: color 0.2s; }
+    .service-card span { font-size: 13px; font-weight: 500; color: #374151; }
+    .service-card.selected { background: #eef3ff; border-color: #4a6cf7; box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15); }
+    .service-card.selected i { color: #4a6cf7; }
+    .btn-search { width: 100%; padding: 16px; background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%); border: none; border-radius: 60px; color: #fff; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30); }
+    .btn-search:active { transform: scale(0.97); }
+    .results-area { margin-top: 24px; padding: 16px 18px; background: #f0fdf4; border-left: 5px solid #22c55e; border-radius: 16px; display: none; }
+    .results-area.visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div style="margin-bottom:24px;">
+      <h1 style="font-size:26px;font-weight:800;color:#1a1a2e;display:flex;align-items:center;gap:8px;"><i class="fas fa-map-pin" style="color:#4a6cf7;font-size:28px;"></i> Event Services</h1>
+      <p style="color:#6b7280;font-size:14px;margin-top:4px;font-weight:500;">Trouvez le bon prestataire près de chez vous</p>
+    </div>
+
+    <label class="field-label" for="wilayaSelect"><i class="fas fa-location-dot"></i> Wilaya</label>
+    <select class="custom-select" id="wilayaSelect">
+      <option value="">-- Choisissez une wilaya --</option>
+      <option value="Alger">Alger</option>
+      <option value="Oran">Oran</option>
+      <option value="Constantine">Constantine</option>
+      <option value="Annaba">Annaba</option>
+      <option value="Blida">Blida</option>
+      <option value="Batna">Batna</option>
+      <option value="Sétif">Sétif</option>
+      <option value="Tizi Ouzou">Tizi Ouzou</option>
+    </select>
+
+    <div class="grid-title"><i class="fas fa-concierge-bell"></i> Quel service cherchez-vous ?</div>
+    <div class="service-grid" id="serviceGrid">
+      <div class="service-card" data-value="event"><i class="fas fa-building"></i><span>Espace événement</span></div>
+      <div class="service-card" data-value="dj"><i class="fas fa-headphones"></i><span>DJ / Artiste</span></div>
+      <div class="service-card" data-value="chef"><i class="fas fa-utensils"></i><span>Chef cuisinier</span></div>
+      <div class="service-card" data-value="photo"><i class="fas fa-camera"></i><span>Photographe</span></div>
+      <div class="service-card" data-value="deco"><i class="fas fa-palette"></i><span>Décoration</span></div>
+      <div class="service-card" data-value="autre"><i class="fas fa-sparkles"></i><span>Autre</span></div>
+    </div>
+
+    <button class="btn-search" id="searchBtn"><i class="fas fa-magnifying-glass"></i> Rechercher</button>
+
+    <div class="results-area" id="resultsArea">
+      <h3><i class="fas fa-check-circle" style="color:#22c55e;"></i> Résultat</h3>
+      <p id="resultMessage">Vous cherchez un service.</p>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.service-card');
+    let selectedService = null;
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        if(this.classList.contains('selected')) {
+          this.classList.remove('selected');
+          selectedService = null;
+        } else {
+          cards.forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedService = this.dataset.value;
+        }
+      });
+    });
+
+    const searchBtn = document.getElementById('searchBtn');
+    const wilayaSelect = document.getElementById('wilayaSelect');
+    const resultsArea = document.getElementById('resultsArea');
+    const resultMessage = document.getElementById('resultMessage');
+
+    searchBtn.addEventListener('click', function() {
+      const wilaya = wilayaSelect.value;
+      if (!wilaya) { alert('⚠️ Veuillez sélectionner une wilaya.'); return; }
+      if (!selectedService) { alert('⚠️ Veuillez sélectionner un service.'); return; }
+      resultMessage.innerHTML = `Vous recherchez un service à <strong>${wilaya}</strong>.`;
+      resultsArea.classList.add('visible');
+    });
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
