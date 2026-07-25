@@ -3,39 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ALGevent - Accueil Client</title>
+  <title>ALGevent - Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    body { background:#f2f4f8;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px; }
-    .app-container { max-width: 420px; width: 100%; background: #ffffff; border-radius: 32px; padding: 24px 20px 32px; box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15); margin: 0 auto; }
-    .field-label { font-size: 15px; font-weight: 600; color: #1f2937; display: block; margin: 24px 0 6px; }
-    .custom-select { width: 100%; padding: 14px 16px; font-size: 15px; border: 2px solid #e5e7eb; border-radius: 16px; background: #fafbfc; color: #1f2937; cursor: pointer; transition: border 0.2s; }
-    .custom-select:focus { border-color: #4a6cf7; outline: none; }
-    .grid-title { margin: 24px 0 12px; font-size: 15px; font-weight: 600; color: #1f2937; }
-    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-    .service-card { background: #fafbfc; border: 2px solid #e5e7eb; border-radius: 16px; padding: 18px 8px; text-align: center; cursor: pointer; transition: all 0.15s ease; user-select: none; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .service-card i { font-size: 26px; color: #6b7280; transition: color 0.2s; }
-    .service-card span { font-size: 13px; font-weight: 500; color: #374151; }
-    .service-card.selected { background: #eef3ff; border-color: #4a6cf7; box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15); }
-    .service-card.selected i { color: #4a6cf7; }
-    .btn-search { width: 100%; padding: 16px; background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%); border: none; border-radius: 60px; color: #fff; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30); }
-    .btn-search:active { transform: scale(0.97); }
-    .results-area { margin-top: 24px; padding: 16px 18px; background: #f0fdf4; border-left: 5px solid #22c55e; border-radius: 16px; display: none; }
-    .results-area.visible { display: block; }
+    body {
+      background: #f2f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .app-container {
+      max-width: 420px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 24px 20px 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+      margin: 0 auto;
+    }
+
+    .field-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+      display: block;
+      margin: 24px 0 6px;
+    }
+
+    .custom-select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fafbfc;
+      color: #1f2937;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+
+    .custom-select:focus {
+      border-color: #4a6cf7;
+      outline: none;
+    }
+
+    .grid-title {
+      margin: 24px 0 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    /* ----- 2 grandes options : salles / fournisseurs ----- */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .explore-card {
+      background: #fafbfc;
+      border: 2px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 28px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .explore-card i {
+      font-size: 34px;
+      color: #6b7280;
+      transition: color 0.2s;
+    }
+
+    .explore-card span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .explore-card.selected {
+      background: #eef3ff;
+      border-color: #4a6cf7;
+      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.15);
+    }
+
+    .explore-card.selected i {
+      color: #4a6cf7;
+    }
+
+    .explore-card .badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: #e5e7eb;
+      color: #4b5563;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 4px;
+    }
+
+    .explore-card.selected .badge {
+      background: #4a6cf7;
+      color: #fff;
+    }
+
+    .btn-search {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%);
+      border: none;
+      border-radius: 60px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30);
+    }
+
+    .btn-search:active {
+      transform: scale(0.97);
+    }
+
+    .results-area {
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: #f0fdf4;
+      border-left: 5px solid #22c55e;
+      border-radius: 16px;
+      display: none;
+    }
+
+    .results-area.visible {
+      display: block;
+    }
+
+    .results-area h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+
+    .results-area h3 i {
+      color: #22c55e;
+      margin-right: 6px;
+    }
+
+    .results-area p {
+      color: #374151;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .results-area .highlight {
+      color: #4a6cf7;
+      font-weight: 600;
+    }
+
+    /* badge de sélection */
+    .selection-indicator {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-top: 16px;
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .selection-indicator.active {
+      background: #dbeafe;
+      color: #1e40af;
+    }
   </style>
 </head>
 <body>
   <div class="app-container">
+    <!-- En-tête -->
     <div style="margin-bottom:24px;">
-      <h1 style="font-size:26px;font-weight:800;color:#1a1a2e;display:flex;align-items:center;gap:8px;"><i class="fas fa-map-pin" style="color:#4a6cf7;font-size:28px;"></i> Event Services</h1>
-      <p style="color:#6b7280;font-size:14px;margin-top:4px;font-weight:500;">Trouvez le bon prestataire près de chez vous</p>
+      <h1 style="font-size:26px;font-weight:800;color:#1a1a2e;display:flex;align-items:center;gap:8px;">
+        <i class="fas fa-compass" style="color:#4a6cf7;font-size:28px;"></i> Explorer
+      </h1>
+      <p style="color:#6b7280;font-size:14px;margin-top:4px;font-weight:500;">
+        Choisissez ce que vous voulez trouver
+      </p>
     </div>
 
-    <label class="field-label" for="wilayaSelect"><i class="fas fa-location-dot"></i> Wilaya</label>
+    <!-- Wilaya -->
+    <label class="field-label" for="wilayaSelect">
+      <i class="fas fa-location-dot"></i> Wilaya
+    </label>
     <select class="custom-select" id="wilayaSelect">
       <option value="">-- Choisissez une wilaya --</option>
       <option value="Alger">Alger</option>
@@ -48,52 +222,148 @@
       <option value="Tizi Ouzou">Tizi Ouzou</option>
     </select>
 
-    <div class="grid-title"><i class="fas fa-concierge-bell"></i> Quel service cherchez-vous ?</div>
-    <div class="service-grid" id="serviceGrid">
-      <div class="service-card" data-value="event"><i class="fas fa-building"></i><span>Espace événement</span></div>
-      <div class="service-card" data-value="dj"><i class="fas fa-headphones"></i><span>DJ / Artiste</span></div>
-      <div class="service-card" data-value="chef"><i class="fas fa-utensils"></i><span>Chef cuisinier</span></div>
-      <div class="service-card" data-value="photo"><i class="fas fa-camera"></i><span>Photographe</span></div>
-      <div class="service-card" data-value="deco"><i class="fas fa-palette"></i><span>Décoration</span></div>
-      <div class="service-card" data-value="autre"><i class="fas fa-sparkles"></i><span>Autre</span></div>
+    <!-- 2 options principales -->
+    <div class="grid-title">
+      <i class="fas fa-search"></i> Que cherchez-vous ?
+    </div>
+    <div class="explore-grid" id="exploreGrid">
+      <!-- Salles -->
+      <div class="explore-card" data-value="salles">
+        <i class="fas fa-building"></i>
+        <span>Salles</span>
+        <span class="badge">Espaces événements</span>
+      </div>
+      <!-- Fournisseurs -->
+      <div class="explore-card" data-value="fournisseurs">
+        <i class="fas fa-handshake"></i>
+        <span>Fournisseurs</span>
+        <span class="badge">Prestataires</span>
+      </div>
     </div>
 
-    <button class="btn-search" id="searchBtn"><i class="fas fa-magnifying-glass"></i> Rechercher</button>
+    <!-- Indicateur de sélection -->
+    <div id="selectionIndicator" class="selection-indicator">
+      Aucune sélection
+    </div>
 
+    <!-- Bouton de recherche -->
+    <button class="btn-search" id="searchBtn">
+      <i class="fas fa-magnifying-glass"></i> Rechercher
+    </button>
+
+    <!-- Zone de résultats -->
     <div class="results-area" id="resultsArea">
-      <h3><i class="fas fa-check-circle" style="color:#22c55e;"></i> Résultat</h3>
-      <p id="resultMessage">Vous cherchez un service.</p>
+      <h3><i class="fas fa-check-circle"></i> Résultat</h3>
+      <p id="resultMessage">Votre recherche s'affichera ici.</p>
     </div>
   </div>
 
   <script>
-    const cards = document.querySelectorAll('.service-card');
-    let selectedService = null;
+    // ---- Sélection des cartes ----
+    const cards = document.querySelectorAll('.explore-card');
+    const indicator = document.getElementById('selectionIndicator');
+    let selectedOption = null;
+
     cards.forEach(card => {
       card.addEventListener('click', function() {
-        if(this.classList.contains('selected')) {
+        // Désélectionner tout
+        cards.forEach(c => c.classList.remove('selected'));
+
+        // Si c'est déjà sélectionné, on désélectionne
+        if (this.classList.contains('selected')) {
           this.classList.remove('selected');
-          selectedService = null;
+          selectedOption = null;
         } else {
-          cards.forEach(c => c.classList.remove('selected'));
           this.classList.add('selected');
-          selectedService = this.dataset.value;
+          selectedOption = this.dataset.value;
         }
+
+        // Mettre à jour l'indicateur
+        updateIndicator();
       });
     });
 
+    function updateIndicator() {
+      if (selectedOption === 'salles') {
+        indicator.textContent = '📍 Salles sélectionnées';
+        indicator.className = 'selection-indicator active';
+      } else if (selectedOption === 'fournisseurs') {
+        indicator.textContent = '🤝 Fournisseurs sélectionnés';
+        indicator.className = 'selection-indicator active';
+      } else {
+        indicator.textContent = 'Aucune sélection';
+        indicator.className = 'selection-indicator';
+      }
+    }
+
+    // ---- Recherche ----
     const searchBtn = document.getElementById('searchBtn');
     const wilayaSelect = document.getElementById('wilayaSelect');
     const resultsArea = document.getElementById('resultsArea');
     const resultMessage = document.getElementById('resultMessage');
 
+    // Base de données simulée
+    const data = {
+      salles: {
+        Alger: ['Le Palace', 'Espace El Djazair', 'Salle des Fêtes Bab Ezzouar'],
+        Oran: ['Le Méridien', 'Espace Ahlam', 'Salle El Bahia'],
+        Constantine: ['Palais des Congrès', 'Salle El Amane', 'Espace Cirta'],
+        Annaba: ['Le Majestic', 'Salle Les Palmiers', 'Espace El Bouni'],
+        Blida: ['Le Jardin', 'Salle El Wiam', 'Espace Chréa'],
+        Batna: ['Le Tassili', 'Salle El Aouras', 'Espace Lambèse'],
+        Sétif: ['Palais de la Culture', 'Salle El Izdihar', 'Espace El Hidhab'],
+        'Tizi Ouzou': ['Le Yemma', 'Salle El Ksar', 'Espace Thénia']
+      },
+      fournisseurs: {
+        Alger: ['Traiteur Prestige', 'DJ Power Sound', 'Décoration Elégance', 'Photographe Studio'],
+        Oran: ['Chef Bahia', 'DJ Oran Mix', 'Décoration Andalouse', 'Photo Light'],
+        Constantine: ['Traiteur El Bey', 'DJ Constantine', 'Décoration Soumam', 'Photographe Cirta'],
+        Annaba: ['Chef Annabi', 'DJ Hibiscus', 'Décoration El Bouni', 'Photo Marine'],
+        Blida: ['Traiteur Chréa', 'DJ Blida', 'Décoration Jardin', 'Photographe Atlas'],
+        Batna: ['Chef Tassili', 'DJ Batna', 'Décoration El Aouras', 'Photo Aurès'],
+        Sétif: ['Traiteur El Hidhab', 'DJ Setif', 'Décoration Izdihar', 'Photographe Sétifien'],
+        'Tizi Ouzou': ['Chef Kabyle', 'DJ Thénia', 'Décoration Yemma', 'Photo Kabylie']
+      }
+    };
+
     searchBtn.addEventListener('click', function() {
       const wilaya = wilayaSelect.value;
-      if (!wilaya) { alert('⚠️ Veuillez sélectionner une wilaya.'); return; }
-      if (!selectedService) { alert('⚠️ Veuillez sélectionner un service.'); return; }
-      resultMessage.innerHTML = `Vous recherchez un service à <strong>${wilaya}</strong>.`;
+
+      // Vérifications
+      if (!wilaya) {
+        alert('⚠️ Veuillez sélectionner une wilaya.');
+        return;
+      }
+
+      if (!selectedOption) {
+        alert('⚠️ Veuillez choisir "Salles" ou "Fournisseurs".');
+        return;
+      }
+
+      // Construire le message
+      const list = data[selectedOption]?.[wilaya];
+      let message = '';
+
+      if (list && list.length > 0) {
+        // Afficher les 3 premiers résultats
+        const displayList = list.slice(0, 3);
+        const listHtml = displayList.map(item => `• ${item}`).join('<br>');
+        const categoryLabel = selectedOption === 'salles' ? 'salles' : 'prestataires';
+        message = `
+          <strong>${displayList.length} ${categoryLabel}</strong> trouvées à <span class="highlight">${wilaya}</span> :<br><br>
+          ${listHtml}
+          ${list.length > 3 ? `<br><span style="font-size:13px;color:#6b7280;">+ ${list.length - 3} autres résultats</span>` : ''}
+        `;
+      } else {
+        message = `Aucun résultat trouvé pour <span class="highlight">${wilaya}</span>. Essayez une autre wilaya.`;
+      }
+
+      resultMessage.innerHTML = message;
       resultsArea.classList.add('visible');
     });
+
+    // Désélectionner si on reclique sur la même carte
+    // (déjà géré dans le click)
   </script>
   <script src="../js/script.js"></script>
 </body>
