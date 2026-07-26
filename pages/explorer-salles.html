@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explorer les espaces d'événement · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body { background: #f6f9fc; padding: 24px; }
+    .container { max-width: 1280px; width: 100%; margin: 0 auto; }
+    
+    .category-header {
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
+      border-radius: 24px;
+      padding: 28px 36px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 12px 30px rgba(24, 119, 242, 0.25);
+    }
+    
+    .category-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.3px; }
+    
+    .category-header .badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    
+    .back-link:hover { opacity: 0.8; }
+    
+    .filter-bar {
+      background: white;
+      padding: 16px 24px;
+      border-radius: 60px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 18px;
+      border: 1px solid #eef2f6;
+    }
+    
+    .wilaya-btn {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .wilaya-btn:hover {
+      background: #eef2ff;
+      border-color: #818cf8;
+      color: #1877f2;
+    }
+    
+    .wilaya-btn.active {
+      background: #1877f2;
+      border-color: #1877f2;
+      color: white;
+      box-shadow: 0 4px 10px rgba(24, 119, 242, 0.25);
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 26px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      border: 1px solid #edf2f7;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.07);
+    }
+    
+    .card-image {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+      border-radius: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    
+    .card-location {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+    
+    .stars {
+      color: #fbbf24;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    
+    .card-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1877f2;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .category-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .category-header h1 { font-size: 24px; }
+      
+      .filter-bar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+
+    <div class="category-header">
+      <div>
+        <h1><i class="fas fa-building"></i> Espaces d'événement</h1>
+        <div style="font-size: 16px; opacity: 0.85;">Trouvez la salle parfaite pour votre événement</div>
+      </div>
+      <div class="badge">⭐ Top salles par wilaya</div>
+    </div>
+
+    <div class="filter-bar">
+      <span style="font-weight: 600; color: #1e293b;">📍 Filtrer par wilaya :</span>
+      <button class="wilaya-btn active" data-wilaya="all">🏠 Toutes</button>
+      <button class="wilaya-btn" data-wilaya="Alger">Alger</button>
+      <button class="wilaya-btn" data-wilaya="Oran">Oran</button>
+      <button class="wilaya-btn" data-wilaya="Constantine">Constantine</button>
+      <button class="wilaya-btn" data-wilaya="Annaba">Annaba</button>
+      <button class="wilaya-btn" data-wilaya="Blida">Blida</button>
+    </div>
+
+    <div class="grid" id="cardGrid"></div>
+  </div>
+
+  <script>
+    const salles = [
+      { id: 1, nom: "Le Palace", wilaya: "Alger", note: 4.9, avis: 124, image: "🏰", prix: "50 000 DA/jour" },
+      { id: 2, nom: "Espace El Djazair", wilaya: "Alger", note: 4.8, avis: 98, image: "🏛️", prix: "45 000 DA/jour" },
+      { id: 3, nom: "Salle des Fêtes", wilaya: "Alger", note: 4.7, avis: 76, image: "🎪", prix: "40 000 DA/jour" },
+      { id: 4, nom: "Le Méridien", wilaya: "Oran", note: 4.8, avis: 112, image: "🏨", prix: "55 000 DA/jour" },
+      { id: 5, nom: "Espace Ahlam", wilaya: "Oran", note: 4.6, avis: 89, image: "✨", prix: "42 000 DA/jour" },
+      { id: 6, nom: "Palais des Congrès", wilaya: "Constantine", note: 4.8, avis: 134, image: "🏰", prix: "60 000 DA/jour" },
+      { id: 7, nom: "Salle El Amane", wilaya: "Constantine", note: 4.7, avis: 65, image: "🎭", prix: "48 000 DA/jour" },
+      { id: 8, nom: "Le Majestic", wilaya: "Annaba", note: 4.6, avis: 72, image: "👑", prix: "50 000 DA/jour" },
+      { id: 9, nom: "Salle Royale", wilaya: "Blida", note: 4.7, avis: 43, image: "👸", prix: "44 000 DA/jour" },
+      { id: 10, nom: "Le Jardin", wilaya: "Blida", note: 4.5, avis: 201, image: "🌹", prix: "38 000 DA/jour" }
+    ];
+
+    function getStars(note) {
+      const full = Math.floor(note);
+      const half = (note - full) >= 0.5 ? 1 : 0;
+      const empty = 5 - full - half;
+      return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+    }
+
+    function renderCards(filterWilaya = 'all') {
+      const grid = document.getElementById('cardGrid');
+      let filtered = salles;
+      if (filterWilaya !== 'all') {
+        filtered = salles.filter(s => s.wilaya === filterWilaya);
+      }
+      filtered.sort((a, b) => b.note - a.note);
+
+      let html = '';
+      filtered.forEach((s) => {
+        const starsStr = getStars(s.note);
+        html += `
+          <div class="card">
+            <div class="card-image">${s.image}</div>
+            <div class="card-title">${s.nom}</div>
+            <div class="card-location">📍 ${s.wilaya}</div>
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 6px;">
+              <span class="stars">${starsStr}</span>
+              <span style="color: #0f172a; font-weight: 700;">${s.note.toFixed(1)}</span>
+              <span style="color: #94a3b8;">(${s.avis} avis)</span>
+            </div>
+            <div class="card-price">${s.prix}</div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    const wilayaBtns = document.querySelectorAll('.wilaya-btn');
+    wilayaBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        wilayaBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderCards(this.dataset.wilaya);
+      });
+    });
+
+    renderCards('all');
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
