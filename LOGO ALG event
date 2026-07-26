@@ -1,0 +1,44 @@
+<div class="logo">
+  <span class="alg-wrapper">
+    <span class="a">A</span>
+    <span class="l">L</span>
+    <span class="g">G</span>
+  </span>
+  <span class="event">event</span>
+</div>
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* Cadre noir autour de ALG */
+.logo .alg-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a2e;
+  padding: 2px 6px;
+  border-radius: 6px;
+  gap: 1px;
+}
+
+.logo .alg-wrapper .a { 
+  color: #31a24c;  /* Vert */
+}
+
+.logo .alg-wrapper .l { 
+  color: #dc2626;  /* Rouge */
+}
+
+.logo .alg-wrapper .g { 
+  color: #ffffff;  /* Blanc */
+}
+
+.logo .event { 
+  color: #1a1a2e;  /* Noir */
+  margin-left: 4px;
+}
