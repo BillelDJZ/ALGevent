@@ -39,10 +39,11 @@
       letter-spacing: -0.5px;
     }
 
-    .logo .a { color: #1877f2; }
-    .logo .l { color: #31a24c; }
-    .logo .g { color: #f7b731; }
-    .logo .event { color: #1a1a2e; }
+    /* ---- NOUVELLES COULEURS DU LOGO ---- */
+    .logo .a { color: #31a24c; }  /* Vert */
+    .logo .l { color: #dc2626; }  /* Rouge */
+    .logo .g { color: #ffffff; text-shadow: 0 0 10px rgba(0,0,0,0.1); } /* Blanc */
+    .logo .event { color: #1a1a2e; } /* Noir */
 
     .header-actions {
       display: flex;
@@ -226,6 +227,51 @@
       font-weight: 500;
     }
 
+    /* ---------- LIEN FOURNISSEUR (nouveau) ---------- */
+    .fournisseur-link {
+      margin-top: 40px;
+      padding: 16px 32px;
+      background: #ffffff;
+      border-radius: 60px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid #eef2f6;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .fournisseur-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: #31a24c;
+    }
+
+    .fournisseur-link a {
+      color: #1a1a2e;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fournisseur-link a i {
+      color: #31a24c;
+      font-size: 18px;
+    }
+
+    .fournisseur-link .arrow {
+      color: #31a24c;
+      font-weight: 700;
+      transition: transform 0.2s;
+    }
+
+    .fournisseur-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
     /* ---------- FOOTER ---------- */
     footer {
       padding: 20px 32px;
@@ -296,6 +342,12 @@
         font-size: 1.6rem;
       }
 
+      .fournisseur-link {
+        padding: 14px 24px;
+        width: 100%;
+        justify-content: center;
+      }
+
       footer {
         flex-direction: column;
         text-align: center;
@@ -330,6 +382,10 @@
       .stat-item .number {
         font-size: 1.4rem;
       }
+
+      .fournisseur-link a {
+        font-size: 13px;
+      }
     }
 
     @media (max-width: 360px) {
@@ -346,6 +402,12 @@
       .action-card .badge {
         font-size: 9px;
         padding: 1px 10px;
+      }
+
+      .fournisseur-link a {
+        font-size: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
@@ -407,6 +469,16 @@
         <div class="number gold">500+</div>
         <div class="label">Événements organisés</div>
       </div>
+    </div>
+
+    <!-- NOUVEAU : Lien pour inscription fournisseur -->
+    <div class="fournisseur-link">
+      <a href="pages/inscription-fournisseur.html">
+        <i class="fas fa-handshake"></i>
+        Vous êtes un fournisseur de service ?
+        <span class="arrow">→</span>
+        <span style="color: #31a24c; font-weight: 700;">Inscrivez-vous</span>
+      </a>
     </div>
   </main>
 
