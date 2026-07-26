@@ -15,7 +15,7 @@ Légende : ✅ déjà codée · ⬜ à coder
 | ✅ `accueil-fournisseur.html` | Landing marketing espace fournisseur |
 | ✅ `connexion.html` | Login avec bascule Salle / Fournisseur |
 | ✅ `inscription-client.html` | Créer un compte salle (nom, email, mot de passe, ville) |
-| ⬜ `inscription-fournisseur.html` | Créer un compte fournisseur (nom, email, mot de passe, type d'activité) |
+| ✅ `inscription-fournisseur.html` | Créer un compte fournisseur (nom, email, mot de passe, type d'activité) |
 | ✅ `mot-de-passe-oublie.html` | Demande de lien de réinitialisation |
 | ⬜ `reinitialiser-mot-de-passe.html` | Saisie du nouveau mot de passe (après clic sur le lien reçu par mail) |
 | ✅ `confirmation-sms.html` | Vérification du numéro par code à 6 chiffres |
