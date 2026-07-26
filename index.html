@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -21,15 +22,26 @@
   </header>
 
   <main class="container" style="padding:60px 24px;text-align:center;">
-    <h1 style="font-size:2.8rem;font-weight:700;margin-bottom:16px;">
-      Trouvez la salle et les prestataires <br>pour votre événement
+    <h1 style="font-size:2.8rem;font-weight:700;margin-bottom:16px;letter-spacing:-0.02em;">
+      Trouvez la salle et les prestataires<br>pour votre événement
     </h1>
-    <p style="font-size:1.2rem;color:#65676b;max-width:600px;margin:0 auto 32px;">
+    <p style="font-size:1.2rem;color:#65676b;max-width:600px;margin:0 auto 48px;line-height:1.6;">
       ALGevent met en relation les organisateurs d'événements avec les meilleures salles et fournisseurs de services.
     </p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="pages/salles.html" class="btn-primary" style="padding:14px 40px;font-size:1.1rem;">Explorer les salles</a>
-      <a href="pages/signup-fournisseur.html" class="btn-primary" style="background:#31a24c;padding:14px 40px;font-size:1.1rem;">Devenir fournisseur</a>
+    
+    <!-- 2 boutons d'action -->
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;max-width:700px;margin:0 auto;">
+      <!-- Bouton Bleu - Explorer les espaces -->
+      <a href="pages/explorer-salles.html" style="flex:1;min-width:250px;padding:18px 32px;background:#1877f2;color:#fff;border-radius:60px;font-weight:700;font-size:1rem;text-decoration:none;transition:background 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px rgba(24,119,242,0.30);" onmouseover="this.style.background='#1464d9'" onmouseout="this.style.background='#1877f2'">
+        <i class="fas fa-building" style="font-size:1.2rem;"></i>
+        Explorer les espaces d'événement
+      </a>
+
+      <!-- Bouton Vert - Explorer les fournisseurs -->
+      <a href="pages/explorer-fournisseurs.html" style="flex:1;min-width:250px;padding:18px 32px;background:#31a24c;color:#fff;border-radius:60px;font-weight:700;font-size:1rem;text-decoration:none;transition:background 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px rgba(49,162,76,0.30);" onmouseover="this.style.background='#278a3d'" onmouseout="this.style.background='#31a24c'">
+        <i class="fas fa-handshake" style="font-size:1.2rem;"></i>
+        Explorer les fournisseurs de service
+      </a>
     </div>
   </main>
 
