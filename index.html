@@ -40,40 +40,42 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
 
+    /* ---- NOUVEAU LOGO : ALG dans cadre noir ---- */
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 0;
       font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 2px;
     }
 
-    .logo .a { color: #31a24c; }  /* Vert */
-    .logo .l { color: #dc2626; }  /* Rouge */
-    
-    /* G en blanc dans un cadre noir */
-    .logo .g-wrapper {
+    /* Cadre noir autour de ALG */
+    .logo .alg-wrapper {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       background: #1a1a2e;
-      width: 32px;
-      height: 32px;
+      padding: 2px 6px;
       border-radius: 6px;
-      margin: 0 2px;
+      gap: 1px;
+    }
+
+    .logo .alg-wrapper .a { 
+      color: #31a24c;  /* Vert */
     }
     
-    .logo .g-wrapper .g {
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1;
+    .logo .alg-wrapper .l { 
+      color: #dc2626;  /* Rouge */
     }
     
+    .logo .alg-wrapper .g { 
+      color: #ffffff;  /* Blanc */
+    }
+
     .logo .event { 
-      color: #1a1a2e;
-      margin-left: 2px;
+      color: #1a1a2e;  /* Noir */
+      margin-left: 4px;
     }
 
     .header-actions {
@@ -388,13 +390,9 @@
         font-size: 24px;
       }
 
-      .logo .g-wrapper {
-        width: 28px;
-        height: 28px;
-      }
-
-      .logo .g-wrapper .g {
-        font-size: 18px;
+      .logo .alg-wrapper {
+        padding: 1px 5px;
+        border-radius: 5px;
       }
 
       .header-actions {
@@ -447,6 +445,15 @@
       .app-container {
         padding: 20px 16px 24px;
         border-radius: 24px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .logo .alg-wrapper {
+        padding: 1px 4px;
+        border-radius: 4px;
       }
 
       .page-header .icon-wrapper {
@@ -511,6 +518,15 @@
     }
 
     @media (max-width: 360px) {
+      .logo {
+        font-size: 18px;
+      }
+
+      .logo .alg-wrapper {
+        padding: 0 3px;
+        border-radius: 3px;
+      }
+
       .action-card {
         padding: 12px 10px;
         min-height: 64px;
@@ -539,9 +555,9 @@
   <!-- HEADER -->
   <header>
     <div class="logo">
-      <span class="a">A</span>
-      <span class="l">L</span>
-      <span class="g-wrapper">
+      <span class="alg-wrapper">
+        <span class="a">A</span>
+        <span class="l">L</span>
         <span class="g">G</span>
       </span>
       <span class="event">event</span>
