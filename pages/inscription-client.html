@@ -1,350 +1,423 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inscription Client - Salle de Sport</title>
-    <!-- Lien vers Font Awesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        /* ---------- RESET & BASE ---------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ALGevent - Inscription Client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body {
+      background: #f2f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+    .app-container {
+      max-width: 420px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 24px 20px 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+      margin: 0 auto;
+    }
 
-        /* ---------- CARTE D'INSCRIPTION ---------- */
-        .register-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 40px 35px;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: transform 0.3s ease;
-        }
+    /* ---------- EN-TÊTE ---------- */
+    .page-header {
+      margin-bottom: 28px;
+    }
 
-        .register-card:hover {
-            transform: scale(1.01);
-        }
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        /* ---------- EN-TÊTE ---------- */
-        .register-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    .page-header h1 i {
+      color: #4a6cf7;
+      font-size: 28px;
+    }
 
-        .register-header .icon-wrapper {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 215, 0, 0.15);
-            border-radius: 50%;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 215, 0, 0.25);
-        }
+    .page-header p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
 
-        .register-header .icon-wrapper i {
-            font-size: 40px;
-            color: #f7c948;
-        }
+    /* ---------- CHAMPS DU FORMULAIRE ---------- */
+    .field-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+      display: block;
+      margin: 20px 0 6px;
+    }
 
-        .register-header h1 {
-            color: #ffffff;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+    .field-label i {
+      color: #4a6cf7;
+      margin-right: 6px;
+      width: 20px;
+    }
 
-        .register-header p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 15px;
-            margin-top: 6px;
-        }
+    .custom-input,
+    .custom-select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fafbfc;
+      color: #1f2937;
+      transition: border 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
 
-        /* ---------- FORMULAIRE ---------- */
-        .register-form .form-group {
-            margin-bottom: 22px;
-            position: relative;
-        }
+    .custom-input:focus,
+    .custom-select:focus {
+      border-color: #4a6cf7;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.10);
+    }
 
-        .register-form label {
-            display: block;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
+    .custom-input::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
 
-        .register-form label i {
-            margin-right: 8px;
-            color: #f7c948;
-            width: 18px;
-        }
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6cf7' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
 
-        .register-form input,
-        .register-form select {
-            width: 100%;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
+    .custom-select option {
+      color: #1f2937;
+      background: #ffffff;
+    }
 
-        .register-form input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            font-weight: 300;
-        }
+    /* ---------- INDICATEUR DE MOT DE PASSE ---------- */
+    .password-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .register-form input:focus,
-        .register-form select:focus {
-            border-color: #f7c948;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(247, 201, 72, 0.15);
-        }
+    .password-hint i {
+      font-size: 14px;
+    }
 
-        .register-form select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f7c948' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.9);
-        }
+    .password-hint.valid {
+      color: #22c55e;
+    }
 
-        .register-form select option {
-            background: #1e1b3a;
-            color: #fff;
-        }
+    /* ---------- BOUTON ---------- */
+    .btn-register {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%);
+      border: none;
+      border-radius: 60px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
 
-        /* ---------- BOUTON ---------- */
-        .btn-register {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #f7c948, #f5b81b);
-            border: none;
-            border-radius: 50px;
-            color: #0f0c29;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 8px 20px -6px rgba(247, 201, 72, 0.3);
-        }
+    .btn-register:active {
+      transform: scale(0.97);
+    }
 
-        .btn-register i {
-            font-size: 20px;
-        }
+    .btn-register i {
+      font-size: 18px;
+    }
 
-        .btn-register:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 28px -8px rgba(247, 201, 72, 0.4);
-            background: linear-gradient(135deg, #fad25c, #f7c948);
-        }
+    /* ---------- MESSAGE DE SUCCÈS ---------- */
+    .results-area {
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: #f0fdf4;
+      border-left: 5px solid #22c55e;
+      border-radius: 16px;
+      display: none;
+    }
 
-        .btn-register:active {
-            transform: scale(0.97);
-        }
+    .results-area.visible {
+      display: block;
+    }
 
-        /* ---------- LIEN CONNEXION ---------- */
-        .login-link {
-            text-align: center;
-            margin-top: 28px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 15px;
-        }
+    .results-area h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
 
-        .login-link a {
-            color: #f7c948;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-            border-bottom: 1px solid transparent;
-        }
+    .results-area h3 i {
+      color: #22c55e;
+      margin-right: 6px;
+    }
 
-        .login-link a:hover {
-            color: #ffdb70;
-            border-bottom-color: #ffdb70;
-        }
+    .results-area p {
+      color: #374151;
+      font-size: 14px;
+      margin: 0;
+    }
 
-        /* ---------- MESSAGE DE SUCCÈS (simulé) ---------- */
-        .success-message {
-            display: none;
-            background: rgba(46, 213, 115, 0.15);
-            border: 1px solid rgba(46, 213, 115, 0.3);
-            border-radius: 14px;
-            padding: 14px 18px;
-            margin-top: 20px;
-            color: #8effb2;
-            font-size: 14px;
-            align-items: center;
-            gap: 12px;
-        }
+    /* ---------- LIEN DE CONNEXION ---------- */
+    .login-link {
+      text-align: center;
+      margin-top: 24px;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-        .success-message i {
-            font-size: 20px;
-            color: #2ed573;
-        }
+    .login-link a {
+      color: #4a6cf7;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
 
-        .success-message.show {
-            display: flex;
-        }
+    .login-link a:hover {
+      color: #6a4cf7;
+      text-decoration: underline;
+    }
 
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 480px) {
-            .register-card {
-                padding: 30px 20px;
-            }
+    /* ---------- INDICATEUR DE SÉLECTION ---------- */
+    .selection-indicator {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-top: 16px;
+      background: #f3f4f6;
+      color: #6b7280;
+    }
 
-            .register-header h1 {
-                font-size: 24px;
-            }
+    .selection-indicator.active {
+      background: #dbeafe;
+      color: #1e40af;
+    }
 
-            .register-form input,
-            .register-form select {
-                padding: 12px 14px;
-                font-size: 14px;
-            }
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 20px 16px 28px;
+      }
 
-            .btn-register {
-                font-size: 16px;
-                padding: 14px;
-            }
-        }
-    </style>
+      .page-header h1 {
+        font-size: 22px;
+      }
+
+      .custom-input,
+      .custom-select {
+        padding: 12px 14px;
+        font-size: 14px;
+      }
+
+      .btn-register {
+        font-size: 16px;
+        padding: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="register-card">
-        <!-- En-tête -->
-        <div class="register-header">
-            <div class="icon-wrapper">
-                <i class="fas fa-user-plus"></i>
-            </div>
-            <h1>Créer un compte</h1>
-            <p>Rejoignez notre salle de sport dès aujourd'hui</p>
-        </div>
-
-        <!-- Formulaire -->
-        <form class="register-form" id="registerForm">
-            <!-- Nom -->
-            <div class="form-group">
-                <label for="nom"><i class="fas fa-user"></i>Nom complet</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom et prénom" required />
-            </div>
-
-            <!-- Email -->
-            <div class="form-group">
-                <label for="email"><i class="fas fa-envelope"></i>Adresse e-mail</label>
-                <input type="email" id="email" name="email" placeholder="exemple@email.com" required />
-            </div>
-
-            <!-- Mot de passe -->
-            <div class="form-group">
-                <label for="password"><i class="fas fa-lock"></i>Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Minimum 8 caractères" required minlength="8" />
-            </div>
-
-            <!-- Ville -->
-            <div class="form-group">
-                <label for="ville"><i class="fas fa-city"></i>Ville</label>
-                <select id="ville" name="ville" required>
-                    <option value="">-- Sélectionnez votre ville --</option>
-                    <option value="paris">Paris</option>
-                    <option value="lyon">Lyon</option>
-                    <option value="marseille">Marseille</option>
-                    <option value="bordeaux">Bordeaux</option>
-                    <option value="lille">Lille</option>
-                    <option value="toulouse">Toulouse</option>
-                    <option value="nice">Nice</option>
-                    <option value="strasbourg">Strasbourg</option>
-                    <option value="autres">Autre</option>
-                </select>
-            </div>
-
-            <!-- Bouton -->
-            <button type="submit" class="btn-register">
-                <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte
-            </button>
-        </form>
-
-        <!-- Message de succès (affiché après soumission) -->
-        <div class="success-message" id="successMessage">
-            <i class="fas fa-check-circle"></i>
-            <span>Compte créé avec succès ! Bienvenue chez nous.</span>
-        </div>
-
-        <!-- Lien vers connexion -->
-        <div class="login-link">
-            Vous avez déjà un compte ? <a href="connexion-client.html">Se connecter</a>
-        </div>
+  <div class="app-container">
+    <!-- En-tête -->
+    <div class="page-header">
+      <h1>
+        <i class="fas fa-user-plus"></i> Créer un compte
+      </h1>
+      <p>Rejoignez ALGevent et trouvez la salle ou le fournisseur idéal</p>
     </div>
 
-    <script>
-        // Gestion de la soumission du formulaire (simulation)
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêche l'envoi réel
+    <!-- Formulaire -->
+    <form id="registerForm">
+      <!-- Nom complet -->
+      <label class="field-label" for="nom">
+        <i class="fas fa-user"></i> Nom complet
+      </label>
+      <input 
+        type="text" 
+        id="nom" 
+        class="custom-input" 
+        placeholder="Votre nom et prénom" 
+        required 
+      />
 
-            // Récupération des valeurs (pour démonstration)
-            const nom = document.getElementById('nom').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const ville = document.getElementById('ville').value;
+      <!-- Email -->
+      <label class="field-label" for="email">
+        <i class="fas fa-envelope"></i> Adresse e-mail
+      </label>
+      <input 
+        type="email" 
+        id="email" 
+        class="custom-input" 
+        placeholder="exemple@email.com" 
+        required 
+      />
 
-            // Validation simple
-            if (!nom || !email || !password || !ville) {
-                alert('Veuillez remplir tous les champs.');
-                return;
-            }
+      <!-- Mot de passe -->
+      <label class="field-label" for="password">
+        <i class="fas fa-lock"></i> Mot de passe
+      </label>
+      <input 
+        type="password" 
+        id="password" 
+        class="custom-input" 
+        placeholder="Minimum 8 caractères" 
+        required 
+        minlength="8"
+      />
+      <div class="password-hint" id="passwordHint">
+        <i class="fas fa-info-circle"></i> 8 caractères minimum
+      </div>
 
-            if (password.length < 8) {
-                alert('Le mot de passe doit contenir au moins 8 caractères.');
-                return;
-            }
+      <!-- Ville (Wilaya) -->
+      <label class="field-label" for="ville">
+        <i class="fas fa-location-dot"></i> Wilaya
+      </label>
+      <select class="custom-select" id="ville" required>
+        <option value="">-- Choisissez votre wilaya --</option>
+        <option value="Alger">Alger</option>
+        <option value="Oran">Oran</option>
+        <option value="Constantine">Constantine</option>
+        <option value="Annaba">Annaba</option>
+        <option value="Blida">Blida</option>
+        <option value="Batna">Batna</option>
+        <option value="Sétif">Sétif</option>
+        <option value="Tizi Ouzou">Tizi Ouzou</option>
+      </select>
 
-            // Affichage du message de succès
-            const successMsg = document.getElementById('successMessage');
-            successMsg.classList.add('show');
+      <!-- Indicateur de sélection (ville) -->
+      <div id="villeIndicator" class="selection-indicator">
+        <i class="fas fa-map-pin"></i> Aucune wilaya sélectionnée
+      </div>
 
-            // (Optionnel) on peut aussi logger les données
-            console.log('✅ Inscription réussie !', { nom, email, ville });
+      <!-- Bouton -->
+      <button type="submit" class="btn-register">
+        <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte
+      </button>
+    </form>
 
-            // Réinitialiser le formulaire (optionnel)
-            // this.reset();
+    <!-- Zone de résultat (succès) -->
+    <div class="results-area" id="successArea">
+      <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
+      <p id="successMessage">Votre compte a été créé avec succès.</p>
+    </div>
 
-            // Masquer le message après 5 secondes (optionnel)
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-            }, 5000);
-        });
-    </script>
+    <!-- Lien vers connexion -->
+    <div class="login-link">
+      Vous avez déjà un compte ? <a href="connexion-client.html">Se connecter</a>
+    </div>
+  </div>
 
+  <script>
+    // ---- Gestion de la sélection de la ville ----
+    const villeSelect = document.getElementById('ville');
+    const villeIndicator = document.getElementById('villeIndicator');
+
+    villeSelect.addEventListener('change', function() {
+      if (this.value) {
+        villeIndicator.textContent = `📍 Wilaya : ${this.value}`;
+        villeIndicator.className = 'selection-indicator active';
+      } else {
+        villeIndicator.textContent = '📍 Aucune wilaya sélectionnée';
+        villeIndicator.className = 'selection-indicator';
+      }
+    });
+
+    // ---- Validation du mot de passe en temps réel ----
+    const passwordInput = document.getElementById('password');
+    const passwordHint = document.getElementById('passwordHint');
+
+    passwordInput.addEventListener('input', function() {
+      if (this.value.length >= 8) {
+        passwordHint.innerHTML = '<i class="fas fa-check-circle"></i> Mot de passe valide';
+        passwordHint.className = 'password-hint valid';
+      } else {
+        const remaining = 8 - this.value.length;
+        passwordHint.innerHTML = `<i class="fas fa-info-circle"></i> ${remaining} caractère${remaining > 1 ? 's' : ''} restant${remaining > 1 ? 's' : ''}`;
+        passwordHint.className = 'password-hint';
+      }
+    });
+
+    // ---- Gestion de la soumission ----
+    const registerForm = document.getElementById('registerForm');
+    const successArea = document.getElementById('successArea');
+    const successMessage = document.getElementById('successMessage');
+
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Récupération des valeurs
+      const nom = document.getElementById('nom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const ville = document.getElementById('ville').value;
+
+      // Validations
+      if (!nom || !email || !password || !ville) {
+        alert('⚠️ Veuillez remplir tous les champs.');
+        return;
+      }
+
+      if (password.length < 8) {
+        alert('⚠️ Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+
+      // Simuler l'envoi (succès)
+      successMessage.innerHTML = `
+        <strong>${nom}</strong>, votre compte a été créé avec succès !<br>
+        <span style="font-size:13px;color:#6b7280;">Email : ${email} · Wilaya : ${ville}</span>
+      `;
+      successArea.classList.add('visible');
+
+      // Réinitialiser le formulaire (optionnel)
+      // this.reset();
+      // villeIndicator.textContent = '📍 Aucune wilaya sélectionnée';
+      // villeIndicator.className = 'selection-indicator';
+      // passwordHint.innerHTML = '<i class="fas fa-info-circle"></i> 8 caractères minimum';
+      // passwordHint.className = 'password-hint';
+
+      // Faire défiler jusqu'au message de succès
+      successArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Masquer le message après 6 secondes
+      setTimeout(() => {
+        successArea.classList.remove('visible');
+      }, 6000);
+    });
+  </script>
+  <script src="../js/script.js"></script>
 </body>
 </html>
