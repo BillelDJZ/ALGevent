@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
     body {
-      background: #f2f4f8;
+      background: #f6f9fc;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -30,7 +30,7 @@
       margin: 0 auto;
     }
 
-    /* ---------- EN-TÊTE (identique) ---------- */
+    /* ---------- EN-TÊTE ---------- */
     .page-header {
       margin-bottom: 28px;
       text-align: center;
@@ -49,7 +49,7 @@
 
     .page-header .icon-wrapper i {
       font-size: 32px;
-      color: #4a6cf7;
+      color: #1877f2;
     }
 
     .page-header h1 {
@@ -66,7 +66,7 @@
       font-weight: 500;
     }
 
-    /* ---------- CHAMPS (identiques) ---------- */
+    /* ---------- CHAMPS ---------- */
     .field-label {
       font-size: 15px;
       font-weight: 600;
@@ -76,7 +76,7 @@
     }
 
     .field-label i {
-      color: #4a6cf7;
+      color: #1877f2;
       margin-right: 6px;
       width: 20px;
     }
@@ -99,9 +99,9 @@
     }
 
     .custom-input:focus {
-      border-color: #4a6cf7;
+      border-color: #1877f2;
       outline: none;
-      box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.10);
+      box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.10);
     }
 
     .custom-input::placeholder {
@@ -168,11 +168,11 @@
       background: #22c55e;
     }
 
-    /* ---------- BOUTON (identique) ---------- */
-    .btn-reset {
+    /* ---------- BOUTON ---------- */
+    .btn-primary {
       width: 100%;
       padding: 16px;
-      background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%);
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
       border: none;
       border-radius: 60px;
       color: #fff;
@@ -180,7 +180,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30);
+      box-shadow: 0 8px 24px rgba(24, 119, 242, 0.30);
       margin-top: 8px;
       display: flex;
       align-items: center;
@@ -189,30 +189,30 @@
       font-family: 'Inter', -apple-system, sans-serif;
     }
 
-    .btn-reset:active {
+    .btn-primary:active {
       transform: scale(0.97);
     }
 
-    .btn-reset i {
+    .btn-primary i {
       font-size: 18px;
     }
 
-    .btn-reset:disabled {
+    .btn-primary:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
 
-    .btn-reset.back {
+    .btn-primary.back {
       background: #e5e7eb;
       color: #1f2937;
       box-shadow: none;
     }
 
-    .btn-reset.back:hover {
+    .btn-primary.back:hover {
       background: #d1d5db;
     }
 
-    /* ---------- ZONE DE RÉSULTAT (identique) ---------- */
+    /* ---------- ZONE DE RÉSULTAT ---------- */
     .results-area {
       margin-top: 24px;
       padding: 18px 20px;
@@ -257,11 +257,11 @@
     }
 
     .results-area .highlight {
-      color: #4a6cf7;
+      color: #1877f2;
       font-weight: 600;
     }
 
-    /* ---------- LIEN DE CONNEXION (identique) ---------- */
+    /* ---------- LIEN DE CONNEXION ---------- */
     .login-link {
       text-align: center;
       margin-top: 24px;
@@ -271,14 +271,14 @@
     }
 
     .login-link a {
-      color: #4a6cf7;
+      color: #1877f2;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s;
     }
 
     .login-link a:hover {
-      color: #6a4cf7;
+      color: #0d5ac4;
       text-decoration: underline;
     }
 
@@ -316,9 +316,9 @@
     }
 
     .step.active .step-number {
-      background: #4a6cf7;
+      background: #1877f2;
       color: #fff;
-      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
     }
 
     .step.active {
@@ -352,11 +352,11 @@
       margin-top: 20px;
     }
 
-    .action-group .btn-reset {
+    .action-group .btn-primary {
       flex: 1;
     }
 
-    .action-group .btn-reset.back {
+    .action-group .btn-primary.back {
       flex: 0.4;
     }
 
@@ -375,7 +375,7 @@
         font-size: 14px;
       }
 
-      .btn-reset {
+      .btn-primary {
         font-size: 16px;
         padding: 14px;
       }
@@ -402,7 +402,7 @@
         flex-direction: column;
       }
 
-      .action-group .btn-reset.back {
+      .action-group .btn-primary.back {
         flex: 1;
       }
     }
@@ -453,7 +453,7 @@
         <i class="fas fa-info-circle"></i> Un lien de réinitialisation vous sera envoyé
       </div>
 
-      <button type="submit" class="btn-reset" style="margin-top: 20px;">
+      <button type="submit" class="btn-primary" style="margin-top: 20px;">
         <i class="fas fa-paper-plane"></i> Envoyer le lien
       </button>
     </form>
@@ -498,10 +498,10 @@
       </div>
 
       <div class="action-group">
-        <button type="button" class="btn-reset back" id="backToStep1">
+        <button type="button" class="btn-primary back" id="backToStep1">
           <i class="fas fa-arrow-left"></i> Retour
         </button>
-        <button type="submit" class="btn-reset" id="resetBtn">
+        <button type="submit" class="btn-primary" id="resetBtn">
           <i class="fas fa-check"></i> Réinitialiser
         </button>
       </div>
