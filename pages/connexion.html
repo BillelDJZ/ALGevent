@@ -2,61 +2,543 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Connexion · ALGevent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ---------- STYLES SPÉCIFIQUES À LA PAGE DE CONNEXION ---------- */
+    body {
+      background: #f6f9fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .center-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #eef2f6;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo .a { color: #1877f2; }
+    .logo .l { color: #31a24c; }
+    .logo .g { color: #f7b731; }
+    .logo .event { color: #1a1a2e; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-actions .back-link {
+      color: #1a1a2e;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-actions .back-link:hover {
+      background: #f0f2f5;
+    }
+
+    .header-actions .back-link i {
+      color: #1877f2;
+    }
+
+    /* ---------- AUTH SHELL ---------- */
+    .auth-shell {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .auth-box {
+      max-width: 420px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 32px 28px 36px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+      margin: 0 auto;
+    }
+
+    /* ---------- AUTH HEAD ---------- */
+    .auth-head {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .auth-head .icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      background: #eef3ff;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+
+    .auth-head .icon-wrapper i {
+      font-size: 28px;
+      color: #1877f2;
+    }
+
+    .auth-head .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #1877f2;
+      background: #eef3ff;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .auth-head h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin: 0 0 6px;
+    }
+
+    .auth-head .sub {
+      color: #65676b;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* ---------- FORMULAIRE ---------- */
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 6px;
+    }
+
+    .field label i {
+      color: #1877f2;
+      margin-right: 6px;
+      width: 18px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fafbfc;
+      color: #1f2937;
+      transition: border 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .field input:focus {
+      border-color: #1877f2;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.10);
+    }
+
+    .field input::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    .field .input-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ---------- BOUTON ---------- */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
+      border: none;
+      border-radius: 60px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(24, 119, 242, 0.30);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary i {
+      font-size: 18px;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ---------- LIENS ---------- */
+    .auth-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .auth-links a {
+      color: #1877f2;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .auth-links a:hover {
+      color: #0d5ac4;
+      text-decoration: underline;
+    }
+
+    .auth-divider {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #e4e6eb;
+      font-size: 14px;
+      color: #65676b;
+    }
+
+    .auth-divider a {
+      color: #1877f2;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .auth-divider a:hover {
+      color: #0d5ac4;
+      text-decoration: underline;
+    }
+
+    /* ---------- MESSAGE D'ERREUR ---------- */
+    .error-message {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      color: #dc2626;
+      font-size: 14px;
+      font-weight: 500;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .error-message.visible {
+      display: flex;
+    }
+
+    .error-message i {
+      font-size: 18px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 20px 32px;
+      border-top: 1px solid #eef2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    footer .mono {
+      font-size: 13px;
+      color: #65676b;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    footer .mono i {
+      margin: 0 4px;
+      color: #1877f2;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 20px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .auth-shell {
+        padding: 24px 16px;
+      }
+
+      .auth-box {
+        padding: 24px 20px 28px;
+      }
+
+      .auth-head h1 {
+        font-size: 22px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-box {
+        border-radius: 24px;
+        padding: 20px 16px 24px;
+      }
+
+      .auth-head h1 {
+        font-size: 20px;
+      }
+
+      .auth-head .icon-wrapper {
+        width: 52px;
+        height: 52px;
+      }
+
+      .auth-head .icon-wrapper i {
+        font-size: 22px;
+      }
+
+      .field input {
+        padding: 12px 14px;
+        font-size: 14px;
+      }
+
+      .btn-primary {
+        font-size: 16px;
+        padding: 14px;
+      }
+
+      footer .mono {
+        font-size: 11px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="center-wrap">
+    <!-- HEADER -->
     <header>
       <div class="logo">
         <span class="a">A</span><span class="l">L</span><span class="g">G</span><span class="event">event</span>
       </div>
       <div class="header-actions">
-        <a href="../index.html" class="login">Retour</a>
+        <a href="../index.html" class="back-link">
+          <i class="fas fa-arrow-left"></i> Retour
+        </a>
       </div>
     </header>
 
+    <!-- MAIN -->
     <main class="auth-shell">
       <div class="auth-box">
+        <!-- En-tête -->
         <div class="auth-head">
+          <div class="icon-wrapper">
+            <i class="fas fa-lock"></i>
+          </div>
           <span class="eyebrow">Authentification</span>
           <h1>Se connecter</h1>
           <p class="sub">Connectez-vous à votre compte ALGevent.</p>
         </div>
 
-        <form id="login-form">
-          <div class="field">
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" name="email" placeholder="vous@exemple.com" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-        </form>
-
-        <div class="field-hint" style="text-align:center;margin-top:22px;">
-          <a href="forgot-password.html">Mot de passe oublié ?</a>
+        <!-- Message d'erreur -->
+        <div class="error-message" id="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="errorText">Identifiants incorrects. Veuillez réessayer.</span>
         </div>
 
-        <div style="text-align:center;margin-top:24px;padding-top:18px;border-top:1px solid #e4e6eb;font-size:0.9rem;color:#65676b;">
-          Pas encore inscrit ? <a href="signup.html" style="color:#1877f2;font-weight:600;">Créer un compte</a>
+        <!-- Formulaire -->
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">
+              <i class="fas fa-envelope"></i> Adresse e-mail
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="exemple@email.com" 
+              autocomplete="email" 
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="password">
+              <i class="fas fa-lock"></i> Mot de passe
+            </label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              placeholder="••••••••" 
+              autocomplete="current-password" 
+              required
+            />
+            <div class="input-hint">
+              <i class="fas fa-info-circle"></i> Minimum 8 caractères
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="loginBtn">
+            <i class="fas fa-arrow-right-to-bracket"></i> Se connecter
+          </button>
+        </form>
+
+        <!-- Liens -->
+        <div class="auth-links">
+          <a href="mot-de-passe-oublie.html">
+            <i class="fas fa-key"></i> Mot de passe oublié ?
+          </a>
+        </div>
+
+        <div class="auth-divider">
+          Pas encore inscrit ? 
+          <a href="inscription-client.html">Créer un compte</a>
         </div>
       </div>
     </main>
 
-    <footer class="foot">
-      <div class="wrap" style="display:flex;justify-content:space-between;">
-        <span class="mono">ALGEVENT — © 2026</span>
-        <span class="mono">Connexion sécurisée</span>
-      </div>
+    <!-- FOOTER -->
+    <footer>
+      <span class="mono">
+        <i class="fas fa-calendar-check"></i> ALGEVENT — © 2026
+      </span>
+      <span class="mono">
+        <i class="fas fa-shield-alt"></i> Connexion sécurisée
+      </span>
     </footer>
   </div>
+
+  <script>
+    // ---- Gestion de la connexion ----
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Validation basique
+      if (!email || !password) {
+        errorText.textContent = 'Veuillez remplir tous les champs.';
+        errorMessage.classList.add('visible');
+        return;
+      }
+
+      if (password.length < 8) {
+        errorText.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+        errorMessage.classList.add('visible');
+        return;
+      }
+
+      // Simuler une vérification (à remplacer par une vraie API)
+      // Pour la démo, on accepte tout email avec mot de passe > 8 caractères
+      
+      // Masquer l'erreur
+      errorMessage.classList.remove('visible');
+
+      // Simuler une connexion
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
+
+      setTimeout(() => {
+        // Succès - rediriger vers le tableau de bord
+        // (à adapter selon le rôle : client ou fournisseur)
+        window.location.href = 'tableau-de-bord-client.html';
+      }, 1500);
+    });
+
+    // ---- Réinitialiser le message d'erreur quand l'utilisateur tape ----
+    document.getElementById('email').addEventListener('input', function() {
+      errorMessage.classList.remove('visible');
+    });
+
+    document.getElementById('password').addEventListener('input', function() {
+      errorMessage.classList.remove('visible');
+    });
+  </script>
   <script src="../js/script.js"></script>
 </body>
 </html>
