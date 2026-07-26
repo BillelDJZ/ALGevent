@@ -2,53 +2,398 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ALGevent · Accueil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f6f9fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---------- HEADER (identique) ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #eef2f6;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .logo .a { color: #1877f2; }
+    .logo .l { color: #31a24c; }
+    .logo .g { color: #f7b731; }
+    .logo .event { color: #1a1a2e; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-actions .login {
+      color: #1a1a2e;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .header-actions .login:hover {
+      background: #f0f2f5;
+    }
+
+    .header-actions .btn-primary {
+      background: #1877f2;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 10px 24px;
+      border-radius: 40px;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.20);
+    }
+
+    .header-actions .btn-primary:hover {
+      background: #1464d9;
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MAIN ---------- */
+    main {
+      flex: 1;
+      padding: 60px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero-title .highlight-blue {
+      color: #1877f2;
+    }
+
+    .hero-title .highlight-green {
+      color: #31a24c;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #65676b;
+      max-width: 600px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+
+    /* ---------- GRILLE DES BOUTONS ---------- */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .action-card {
+      padding: 24px 28px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      min-height: 72px;
+    }
+
+    .action-card i {
+      font-size: 1.4rem;
+    }
+
+    /* --- Carte Salles (bleue) --- */
+    .action-card.salles {
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(24, 119, 242, 0.30);
+    }
+
+    .action-card.salles:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(24, 119, 242, 0.40);
+    }
+
+    .action-card.salles .badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* --- Carte Fournisseurs (verte) --- */
+    .action-card.fournisseurs {
+      background: linear-gradient(135deg, #31a24c 0%, #1f7a33 100%);
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(49, 162, 76, 0.30);
+    }
+
+    .action-card.fournisseurs:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(49, 162, 76, 0.40);
+    }
+
+    .action-card.fournisseurs .badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ---------- STATS (optionnel) ---------- */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+
+    .stat-item .label {
+      font-size: 14px;
+      color: #65676b;
+      font-weight: 500;
+    }
+
+    .stat-item .number.blue { color: #1877f2; }
+    .stat-item .number.green { color: #31a24c; }
+    .stat-item .number.gold { color: #f7b731; }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 20px 32px;
+      border-top: 1px solid #eef2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    footer .mono {
+      font-size: 13px;
+      color: #65676b;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    footer .mono i {
+      margin: 0 4px;
+      color: #1877f2;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 20px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 16px;
+      }
+
+      .action-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      .action-card {
+        padding: 20px 24px;
+        font-size: 0.95rem;
+        min-height: 60px;
+      }
+
+      .stats {
+        gap: 24px;
+        margin-top: 40px;
+      }
+
+      .stat-item .number {
+        font-size: 1.6rem;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 40px 16px;
+      }
+
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .action-card {
+        padding: 16px 20px;
+        font-size: 0.9rem;
+        min-height: 54px;
+        border-radius: 16px;
+      }
+
+      .action-card i {
+        font-size: 1.2rem;
+      }
+
+      .stats {
+        gap: 16px;
+      }
+
+      .stat-item .number {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <div class="logo">
       <span class="a">A</span><span class="l">L</span><span class="g">G</span><span class="event">event</span>
     </div>
     <div class="header-actions">
       <a href="pages/connexion.html" class="login">Se connecter</a>
-      <a href="pages/signup.html" class="btn-primary">S'inscrire</a>
+      <a href="pages/inscription-client.html" class="btn-primary">S'inscrire</a>
     </div>
   </header>
 
-  <main class="container" style="padding:60px 24px;text-align:center;">
-    <h1 style="font-size:2.8rem;font-weight:700;margin-bottom:16px;letter-spacing:-0.02em;">
-      Trouvez la salle et les prestataires<br>pour votre événement
+  <!-- MAIN -->
+  <main>
+    <h1 class="hero-title">
+      Trouvez la <span class="highlight-blue">salle</span> et les<br>
+      <span class="highlight-green">prestataires</span> pour votre événement
     </h1>
-    <p style="font-size:1.2rem;color:#65676b;max-width:600px;margin:0 auto 48px;line-height:1.6;">
-      ALGevent met en relation les organisateurs d'événements avec les meilleures salles et fournisseurs de services.
+    <p class="hero-subtitle">
+      ALGevent met en relation les organisateurs d'événements avec les meilleures salles et fournisseurs de services en Algérie.
     </p>
-    
-    <!-- 2 boutons d'action -->
-    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;max-width:700px;margin:0 auto;">
-      <!-- Bouton Bleu - Explorer les espaces -->
-      <a href="pages/explorer-salles.html" style="flex:1;min-width:250px;padding:18px 32px;background:#1877f2;color:#fff;border-radius:60px;font-weight:700;font-size:1rem;text-decoration:none;transition:background 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px rgba(24,119,242,0.30);" onmouseover="this.style.background='#1464d9'" onmouseout="this.style.background='#1877f2'">
-        <i class="fas fa-building" style="font-size:1.2rem;"></i>
+
+    <!-- Grille des 2 boutons d'action -->
+    <div class="action-grid">
+      <!-- Bouton Salles -->
+      <a href="pages/explorer-salles.html" class="action-card salles">
+        <i class="fas fa-building"></i>
         Explorer les espaces d'événement
+        <span class="badge">🏆 Top salles</span>
       </a>
 
-      <!-- Bouton Vert - Explorer les fournisseurs -->
-      <a href="pages/explorer-fournisseurs.html" style="flex:1;min-width:250px;padding:18px 32px;background:#31a24c;color:#fff;border-radius:60px;font-weight:700;font-size:1rem;text-decoration:none;transition:background 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px rgba(49,162,76,0.30);" onmouseover="this.style.background='#278a3d'" onmouseout="this.style.background='#31a24c'">
-        <i class="fas fa-handshake" style="font-size:1.2rem;"></i>
+      <!-- Bouton Fournisseurs -->
+      <a href="pages/explorer-fournisseurs.html" class="action-card fournisseurs">
+        <i class="fas fa-handshake"></i>
         Explorer les fournisseurs de service
+        <span class="badge">🎯 6 catégories</span>
       </a>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="stats">
+      <div class="stat-item">
+        <div class="number blue">150+</div>
+        <div class="label">Salles d'événements</div>
+      </div>
+      <div class="stat-item">
+        <div class="number green">200+</div>
+        <div class="label">Fournisseurs</div>
+      </div>
+      <div class="stat-item">
+        <div class="number gold">500+</div>
+        <div class="label">Événements organisés</div>
+      </div>
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer>
-    <span class="mono">ALGEVENT — © 2026</span>
-    <span class="mono">SALLES · FOURNISSEURS · ÉVÉNEMENTS</span>
+    <span class="mono">
+      <i class="fas fa-calendar-check"></i> ALGEVENT — © 2026
+    </span>
+    <span class="mono">
+      <i class="fas fa-building"></i> SALLES · <i class="fas fa-handshake"></i> FOURNISSEURS · <i class="fas fa-star"></i> ÉVÉNEMENTS
+    </span>
   </footer>
+
   <script src="js/script.js"></script>
 </body>
 </html>
