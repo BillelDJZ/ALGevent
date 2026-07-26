@@ -1,0 +1,78 @@
+# Architecture du site — ALGevent
+
+Plateforme de mise en relation entre **salles d'événements** et **fournisseurs** (traiteurs, décorateurs, DJ, fleuristes...).
+
+Légende : ✅ déjà codée · ⬜ à coder
+
+---
+
+## 1. Tronc commun (avant connexion)
+
+| Page | Rôle |
+|---|---|
+| ✅ `index.html` — Accueil général | Choix entre "Salle d'événements" / "Fournisseur", liens Connexion/Inscription |
+| ✅ `accueil-client.html` | Landing marketing espace salle |
+| ✅ `accueil-fournisseur.html` | Landing marketing espace fournisseur |
+| ✅ `connexion.html` | Login avec bascule Salle / Fournisseur |
+| ⬜ `inscription-client.html` | Créer un compte salle (nom, email, mot de passe, ville) |
+| ⬜ `inscription-fournisseur.html` | Créer un compte fournisseur (nom, email, mot de passe, type d'activité) |
+| ✅ `mot-de-passe-oublie.html` | Demande de lien de réinitialisation |
+| ⬜ `reinitialiser-mot-de-passe.html` | Saisie du nouveau mot de passe (après clic sur le lien reçu par mail) |
+| ✅ `confirmation-sms.html` | Vérification du numéro par code à 6 chiffres |
+| ⬜ `404.html` | Page introuvable |
+
+---
+
+## 2. Espace Salle d'événements (compte client)
+
+| Page | Rôle |
+|---|---|
+| ⬜ `tableau-de-bord-client.html` | Vue d'ensemble après connexion : demandes reçues, prochains événements |
+| ⬜ `ma-fiche-salle.html` | Créer/éditer la fiche de sa salle : photos, capacité, style, équipements, adresse, disponibilités |
+| ⬜ `annuaire-fournisseurs.html` | **La page que tu décris** : liste de tous les fournisseurs, filtrable par catégorie (traiteur, décoration, DJ...), ville, disponibilité |
+| ⬜ `fiche-fournisseur.html` | Détail d'un fournisseur cliqué depuis l'annuaire : portfolio, tarifs indicatifs, avis, bouton "Contacter" |
+| ⬜ `messagerie-client.html` | Échanges avec les fournisseurs contactés |
+| ⬜ `calendrier-client.html` | Disponibilités de la salle, événements confirmés |
+| ⬜ `historique-client.html` | Événements passés accueillis dans la salle |
+| ⬜ `parametres-client.html` | Infos du compte, mot de passe, notifications |
+
+---
+
+## 3. Espace Fournisseur
+
+| Page | Rôle |
+|---|---|
+| ⬜ `tableau-de-bord-fournisseur.html` | Vue d'ensemble : demandes reçues, missions à venir |
+| ⬜ `ma-fiche-fournisseur.html` | Créer/éditer sa fiche : type de service, zone d'intervention, portfolio, tarifs |
+| ⬜ `annuaire-salles.html` | **La page que tu décris** : liste de toutes les salles, filtrable par ville, capacité, style |
+| ⬜ `fiche-salle-detail.html` | Détail d'une salle cliquée depuis l'annuaire : photos, capacité, équipements, bouton "Proposer mes services" |
+| ⬜ `messagerie-fournisseur.html` | Échanges avec les salles |
+| ⬜ `calendrier-fournisseur.html` | Missions confirmées, disponibilités |
+| ⬜ `historique-fournisseur.html` | Prestations passées |
+| ⬜ `parametres-fournisseur.html` | Infos du compte, mot de passe, notifications |
+
+---
+
+## 4. Pages transverses (à voir plus tard)
+
+- ⬜ Page de contact / support
+- ⬜ CGU / mentions légales
+- ⬜ Notifications (cloche dans la nav une fois connecté)
+
+---
+
+## Ce qui distingue "fiche salle" et "fiche fournisseur" côté contenu
+
+- **Fiche salle** (vue par un fournisseur) : capacité d'accueil, type d'espace, équipements sur place, accès PMR, photos, options traiteur, adresse/zone.
+- **Fiche fournisseur** (vue par une salle) : catégorie de service (traiteur, décoration, DJ, fleuriste...), zone d'intervention, portfolio de réalisations, tarifs indicatifs, avis.
+
+---
+
+## Ordre logique suggéré pour la suite
+
+1. `inscription-client.html` + `inscription-fournisseur.html` (complète le tronc commun)
+2. `ma-fiche-salle.html` et `ma-fiche-fournisseur.html` (les fiches de profil)
+3. `annuaire-fournisseurs.html` et `annuaire-salles.html` (les pages d'accès aux fiches)
+4. `fiche-fournisseur.html` et `fiche-salle-detail.html` (le détail d'une fiche cliquée)
+5. Tableaux de bord, messagerie, calendrier, historique, paramètres
+6.
