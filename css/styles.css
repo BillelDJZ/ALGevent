@@ -29,6 +29,17 @@
       box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
       margin: 0 auto;
     }
+/* Avant */
+.logo .a { color: #1877f2; }  /* Bleu */
+.logo .l { color: #31a24c; }  /* Vert */
+.logo .g { color: #f7b731; }  /* Or */
+.logo .event { color: #1a1a2e; } /* Noir */
+
+/* Après */
+.logo .a { color: #31a24c; }  /* Vert ✅ */
+.logo .l { color: #dc2626; }  /* Rouge ✅ */
+.logo .g { color: #ffffff; text-shadow: 0 0 10px rgba(0,0,0,0.1); } /* Blanc ✅ */
+.logo .event { color: #1a1a2e; } /* Noir ✅ */
 
     /* ---------- EN-TÊTE ---------- */
     .page-header {
