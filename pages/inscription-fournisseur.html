@@ -56,6 +56,55 @@
       font-weight: 500;
     }
 
+    /* ---------- NOUVEAU : BANNIÈRE DE CONNEXION EN HAUT ---------- */
+    .login-banner {
+      background: #f0f4ff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .login-banner .text {
+      font-size: 14px;
+      color: #1f2937;
+      font-weight: 500;
+    }
+
+    .login-banner .text i {
+      color: #4a6cf7;
+      margin-right: 6px;
+    }
+
+    .login-banner .btn-connect {
+      background: #4a6cf7;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 40px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.25);
+    }
+
+    .login-banner .btn-connect:hover {
+      background: #3b5de7;
+      transform: translateY(-2px);
+    }
+
+    .login-banner .btn-connect i {
+      font-size: 14px;
+    }
+
     /* ---------- CHAMPS (identiques à Explorer) ---------- */
     .field-label {
       font-size: 15px;
@@ -265,7 +314,7 @@
       font-weight: 600;
     }
 
-    /* ---------- LIEN DE CONNEXION (identique à Explorer) ---------- */
+    /* ---------- LIEN DE CONNEXION EN BAS (identique à Explorer) ---------- */
     .login-link {
       text-align: center;
       margin-top: 24px;
@@ -317,6 +366,17 @@
         padding: 8px 10px;
         font-size: 13px;
       }
+
+      .login-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 14px 16px;
+      }
+
+      .login-banner .btn-connect {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     @media (max-width: 360px) {
@@ -328,12 +388,22 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- En-tête (identique à Explorer) -->
+    <!-- En-tête -->
     <div class="page-header">
       <h1>
         <i class="fas fa-handshake"></i> Devenir fournisseur
       </h1>
       <p>Inscrivez votre entreprise et rejoignez notre réseau de prestataires</p>
+    </div>
+
+    <!-- NOUVEAU : Bannière "Déjà fournisseur ?" -->
+    <div class="login-banner">
+      <span class="text">
+        <i class="fas fa-info-circle"></i> Vous avez déjà un compte fournisseur ?
+      </span>
+      <a href="connexion-fournisseur.html" class="btn-connect">
+        <i class="fas fa-arrow-right-to-bracket"></i> Se connecter
+      </a>
     </div>
 
     <!-- Formulaire -->
@@ -389,7 +459,7 @@
         <i class="fas fa-info-circle"></i> 8 caractères minimum
       </div>
 
-      <!-- Wilaya (identique à Explorer) -->
+      <!-- Wilaya -->
       <label class="field-label" for="ville">
         <i class="fas fa-location-dot"></i> Wilaya <span class="required">*</span>
       </label>
@@ -405,7 +475,7 @@
         <option value="Tizi Ouzou">Tizi Ouzou</option>
       </select>
 
-      <!-- Indicateur de sélection (identique à Explorer) -->
+      <!-- Indicateur de sélection -->
       <div id="villeIndicator" class="selection-indicator">
         <i class="fas fa-map-pin"></i> Aucune wilaya sélectionnée
       </div>
@@ -450,26 +520,26 @@
         placeholder="Présentez votre entreprise, vos spécialités, vos atouts..."
       ></textarea>
 
-      <!-- Bouton (identique à Explorer) -->
+      <!-- Bouton -->
       <button type="submit" class="btn-register">
         <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte fournisseur
       </button>
     </form>
 
-    <!-- Zone de résultat (identique à Explorer) -->
+    <!-- Zone de résultat (succès) -->
     <div class="results-area" id="successArea">
       <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
       <p id="successMessage">Votre compte fournisseur a été créé avec succès.</p>
     </div>
 
-    <!-- Lien de connexion (identique à Explorer) -->
+    <!-- Lien de connexion en bas -->
     <div class="login-link">
       Vous avez déjà un compte fournisseur ? <a href="connexion-fournisseur.html">Se connecter</a>
     </div>
   </div>
 
   <script>
-    // ---- Gestion de la sélection de la ville (identique à Explorer) ----
+    // ---- Gestion de la sélection de la ville ----
     const villeSelect = document.getElementById('ville');
     const villeIndicator = document.getElementById('villeIndicator');
 
@@ -516,7 +586,7 @@
       }
     }
 
-    // ---- Validation du mot de passe (identique à Explorer) ----
+    // ---- Validation du mot de passe ----
     const passwordInput = document.getElementById('password');
     const passwordHint = document.getElementById('passwordHint');
 
