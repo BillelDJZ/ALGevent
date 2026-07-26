@@ -2,76 +2,595 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inscription Fournisseur · ALGevent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ALGevent - Inscription Fournisseur</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body {
+      background: #f2f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .app-container {
+      max-width: 420px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 24px 20px 32px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.15);
+      margin: 0 auto;
+    }
+
+    /* ---------- EN-TÊTE ---------- */
+    .page-header {
+      margin-bottom: 28px;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-header h1 i {
+      color: #6a4cf7;
+      font-size: 28px;
+    }
+
+    .page-header p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ---------- CHAMPS DU FORMULAIRE ---------- */
+    .field-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+      display: block;
+      margin: 20px 0 6px;
+    }
+
+    .field-label i {
+      color: #6a4cf7;
+      margin-right: 6px;
+      width: 20px;
+    }
+
+    .field-label .required {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+
+    .custom-input,
+    .custom-select,
+    .custom-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fafbfc;
+      color: #1f2937;
+      transition: border 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .custom-input:focus,
+    .custom-select:focus,
+    .custom-textarea:focus {
+      border-color: #6a4cf7;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(106, 76, 247, 0.10);
+    }
+
+    .custom-input::placeholder,
+    .custom-textarea::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a4cf7' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
+
+    .custom-select option {
+      color: #1f2937;
+      background: #ffffff;
+    }
+
+    .custom-textarea {
+      resize: vertical;
+      min-height: 80px;
+      max-height: 150px;
+    }
+
+    /* ---------- INDICATEUR DE MOT DE PASSE ---------- */
+    .password-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .password-hint i {
+      font-size: 14px;
+    }
+
+    .password-hint.valid {
+      color: #22c55e;
+    }
+
+    /* ---------- SECTION SERVICES (CHECKBOXES) ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .service-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fafbfc;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .service-check:hover {
+      border-color: #a78bfa;
+      background: #f5f3ff;
+    }
+
+    .service-check input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #6a4cf7;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .service-check.selected {
+      border-color: #6a4cf7;
+      background: #f5f3ff;
+    }
+
+    /* ---------- INDICATEUR DE SÉLECTION ---------- */
+    .selection-indicator {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-top: 12px;
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .selection-indicator.active {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    /* ---------- BOUTON ---------- */
+    .btn-register {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #6a4cf7 0%, #4a6cf7 100%);
+      border: none;
+      border-radius: 60px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(106, 76, 247, 0.30);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .btn-register:active {
+      transform: scale(0.97);
+    }
+
+    .btn-register i {
+      font-size: 18px;
+    }
+
+    /* ---------- MESSAGE DE SUCCÈS ---------- */
+    .results-area {
+      margin-top: 24px;
+      padding: 18px 20px;
+      background: #f0fdf4;
+      border-left: 5px solid #22c55e;
+      border-radius: 16px;
+      display: none;
+    }
+
+    .results-area.visible {
+      display: block;
+    }
+
+    .results-area h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+
+    .results-area h3 i {
+      color: #22c55e;
+      margin-right: 6px;
+    }
+
+    .results-area p {
+      color: #374151;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* ---------- LIEN DE CONNEXION ---------- */
+    .login-link {
+      text-align: center;
+      margin-top: 24px;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .login-link a {
+      color: #6a4cf7;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .login-link a:hover {
+      color: #4a6cf7;
+      text-decoration: underline;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 20px 16px 28px;
+      }
+
+      .page-header h1 {
+        font-size: 22px;
+      }
+
+      .custom-input,
+      .custom-select,
+      .custom-textarea {
+        padding: 12px 14px;
+        font-size: 14px;
+      }
+
+      .btn-register {
+        font-size: 16px;
+        padding: 14px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .service-check {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <span class="a">A</span><span class="l">L</span><span class="g">G</span><span class="event">event</span>
+  <div class="app-container">
+    <!-- En-tête -->
+    <div class="page-header">
+      <h1>
+        <i class="fas fa-handshake"></i> Devenir fournisseur
+      </h1>
+      <p>Inscrivez votre entreprise et rejoignez notre réseau de prestataires</p>
     </div>
-    <div class="header-actions">
-      <a href="connexion.html" class="login">Se connecter</a>
-    </div>
-  </header>
 
-  <main class="container">
-    <div class="signup-box">
-      <h1>Créer mon compte</h1>
-      <p class="sub">Inscrivez votre entreprise et présentez vos services.</p>
-      <form action="verify.html" method="get">
-        <div class="form-group">
-          <label for="entreprise">Nom de l'entreprise</label>
-          <input type="text" id="entreprise" name="entreprise" placeholder="Votre société" required />
-        </div>
-        <div class="form-group">
-          <label for="categorie">Catégorie de service</label>
-          <select id="categorie" name="categorie" required>
-            <option value="">Sélectionnez</option>
-            <option value="traiteur">Traiteur</option>
-            <option value="decoration">Décoration</option>
-            <option value="dj">DJ / Animation</option>
-            <option value="photographie">Photographe / Vidéaste</option>
-            <option value="location">Location de matériel</option>
-            <option value="autre">Autre</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="email">Adresse courriel professionnelle</label>
-          <input type="email" id="email" name="email" placeholder="contact@entreprise.fr" required />
-        </div>
-        <div class="form-group">
-          <label for="telephone">Numéro de téléphone</label>
-          <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6" />
-        </div>
-        <div class="form-group">
-          <label for="confirm-password">Confirmer le mot de passe</label>
-          <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required minlength="6" />
-        </div>
-        <button type="submit" class="btn-primary btn-block">Créer mon compte fournisseur</button>
-      </form>
+    <!-- Formulaire -->
+    <form id="registerForm">
+      <!-- Nom de l'entreprise -->
+      <label class="field-label" for="entreprise">
+        <i class="fas fa-building"></i> Nom de l'entreprise <span class="required">*</span>
+      </label>
+      <input 
+        type="text" 
+        id="entreprise" 
+        class="custom-input" 
+        placeholder="Nom de votre société" 
+        required 
+      />
 
-      <div class="signup-footer">
-        Vous avez déjà un compte ? <a href="connexion.html">Se connecter</a>
+      <!-- Email professionnel -->
+      <label class="field-label" for="email">
+        <i class="fas fa-envelope"></i> Email professionnel <span class="required">*</span>
+      </label>
+      <input 
+        type="email" 
+        id="email" 
+        class="custom-input" 
+        placeholder="contact@entreprise.com" 
+        required 
+      />
+
+      <!-- Téléphone -->
+      <label class="field-label" for="telephone">
+        <i class="fas fa-phone"></i> Téléphone
+      </label>
+      <input 
+        type="tel" 
+        id="telephone" 
+        class="custom-input" 
+        placeholder="05 XX XX XX XX" 
+      />
+
+      <!-- Mot de passe -->
+      <label class="field-label" for="password">
+        <i class="fas fa-lock"></i> Mot de passe <span class="required">*</span>
+      </label>
+      <input 
+        type="password" 
+        id="password" 
+        class="custom-input" 
+        placeholder="Minimum 8 caractères" 
+        required 
+        minlength="8"
+      />
+      <div class="password-hint" id="passwordHint">
+        <i class="fas fa-info-circle"></i> 8 caractères minimum
       </div>
-      <div class="back-link">
-        Vous êtes une salle d'événements ? <a href="signup.html">Inscrivez-vous ici</a>
-      </div>
-    </div>
-  </main>
 
-  <footer>
-    <span class="mono">ALGEVENT — © 2026</span>
-    <span class="mono">SALLES · FOURNISSEURS · ÉVÉNEMENTS</span>
-  </footer>
+      <!-- Wilaya -->
+      <label class="field-label" for="ville">
+        <i class="fas fa-location-dot"></i> Wilaya <span class="required">*</span>
+      </label>
+      <select class="custom-select" id="ville" required>
+        <option value="">-- Choisissez votre wilaya --</option>
+        <option value="Alger">Alger</option>
+        <option value="Oran">Oran</option>
+        <option value="Constantine">Constantine</option>
+        <option value="Annaba">Annaba</option>
+        <option value="Blida">Blida</option>
+        <option value="Batna">Batna</option>
+        <option value="Sétif">Sétif</option>
+        <option value="Tizi Ouzou">Tizi Ouzou</option>
+      </select>
+
+      <!-- Indicateur de sélection (ville) -->
+      <div id="villeIndicator" class="selection-indicator">
+        <i class="fas fa-map-pin"></i> Aucune wilaya sélectionnée
+      </div>
+
+      <!-- Services proposés -->
+      <label class="field-label" style="margin-top: 24px;">
+        <i class="fas fa-cogs"></i> Services proposés
+      </label>
+      <div class="services-grid" id="servicesGrid">
+        <label class="service-check">
+          <input type="checkbox" value="traiteur" /> Traiteur
+        </label>
+        <label class="service-check">
+          <input type="checkbox" value="decoration" /> Décoration
+        </label>
+        <label class="service-check">
+          <input type="checkbox" value="sonorisation" /> Sonorisation
+        </label>
+        <label class="service-check">
+          <input type="checkbox" value="photographie" /> Photographie
+        </label>
+        <label class="service-check">
+          <input type="checkbox" value="animation" /> Animation
+        </label>
+        <label class="service-check">
+          <input type="checkbox" value="location" /> Location
+        </label>
+      </div>
+
+      <!-- Indicateur de sélection (services) -->
+      <div id="servicesIndicator" class="selection-indicator">
+        <i class="fas fa-check-circle"></i> Aucun service sélectionné
+      </div>
+
+      <!-- Description -->
+      <label class="field-label" for="description">
+        <i class="fas fa-align-left"></i> Description de l'activité
+      </label>
+      <textarea 
+        id="description" 
+        class="custom-textarea" 
+        placeholder="Présentez votre entreprise, vos spécialités, vos atouts..."
+      ></textarea>
+
+      <!-- Bouton -->
+      <button type="submit" class="btn-register">
+        <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte fournisseur
+      </button>
+    </form>
+
+    <!-- Zone de résultat (succès) -->
+    <div class="results-area" id="successArea">
+      <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
+      <p id="successMessage">Votre compte fournisseur a été créé avec succès.</p>
+    </div>
+
+    <!-- Lien vers connexion -->
+    <div class="login-link">
+      Vous avez déjà un compte fournisseur ? <a href="connexion-fournisseur.html">Se connecter</a>
+    </div>
+  </div>
+
+  <script>
+    // ---- Gestion de la sélection de la ville ----
+    const villeSelect = document.getElementById('ville');
+    const villeIndicator = document.getElementById('villeIndicator');
+
+    villeSelect.addEventListener('change', function() {
+      if (this.value) {
+        villeIndicator.textContent = `📍 Wilaya : ${this.value}`;
+        villeIndicator.className = 'selection-indicator active';
+      } else {
+        villeIndicator.textContent = '📍 Aucune wilaya sélectionnée';
+        villeIndicator.className = 'selection-indicator';
+      }
+    });
+
+    // ---- Gestion des services (checkboxes) ----
+    const serviceChecks = document.querySelectorAll('.service-check input[type="checkbox"]');
+    const servicesIndicator = document.getElementById('servicesIndicator');
+
+    serviceChecks.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        // Mettre à jour le style du parent
+        this.closest('.service-check').classList.toggle('selected', this.checked);
+        updateServicesIndicator();
+      });
+    });
+
+    function updateServicesIndicator() {
+      const checked = document.querySelectorAll('.service-check input:checked');
+      if (checked.length > 0) {
+        const names = Array.from(checked).map(cb => cb.value);
+        const displayNames = names.map(name => {
+          const map = {
+            'traiteur': 'Traiteur',
+            'decoration': 'Décoration',
+            'sonorisation': 'Sonorisation',
+            'photographie': 'Photographie',
+            'animation': 'Animation',
+            'location': 'Location'
+          };
+          return map[name] || name;
+        });
+        servicesIndicator.textContent = `✅ ${displayNames.join(', ')}`;
+        servicesIndicator.className = 'selection-indicator active';
+      } else {
+        servicesIndicator.textContent = '❌ Aucun service sélectionné';
+        servicesIndicator.className = 'selection-indicator';
+      }
+    }
+
+    // ---- Validation du mot de passe en temps réel ----
+    const passwordInput = document.getElementById('password');
+    const passwordHint = document.getElementById('passwordHint');
+
+    passwordInput.addEventListener('input', function() {
+      if (this.value.length >= 8) {
+        passwordHint.innerHTML = '<i class="fas fa-check-circle"></i> Mot de passe valide';
+        passwordHint.className = 'password-hint valid';
+      } else {
+        const remaining = 8 - this.value.length;
+        passwordHint.innerHTML = `<i class="fas fa-info-circle"></i> ${remaining} caractère${remaining > 1 ? 's' : ''} restant${remaining > 1 ? 's' : ''}`;
+        passwordHint.className = 'password-hint';
+      }
+    });
+
+    // ---- Gestion de la soumission ----
+    const registerForm = document.getElementById('registerForm');
+    const successArea = document.getElementById('successArea');
+    const successMessage = document.getElementById('successMessage');
+
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Récupération des valeurs
+      const entreprise = document.getElementById('entreprise').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const ville = document.getElementById('ville').value;
+      const description = document.getElementById('description').value.trim();
+      const services = document.querySelectorAll('.service-check input:checked');
+      const servicesList = Array.from(services).map(cb => cb.value);
+
+      // Validations
+      if (!entreprise || !email || !password || !ville) {
+        alert('⚠️ Veuillez remplir tous les champs obligatoires (*).');
+        return;
+      }
+
+      if (password.length < 8) {
+        alert('⚠️ Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+
+      // Simuler l'envoi (succès)
+      let servicesText = servicesList.length > 0 
+        ? servicesList.map(s => {
+            const map = {
+              'traiteur': 'Traiteur',
+              'decoration': 'Décoration',
+              'sonorisation': 'Sonorisation',
+              'photographie': 'Photographie',
+              'animation': 'Animation',
+              'location': 'Location'
+            };
+            return map[s] || s;
+          }).join(', ')
+        : 'Aucun service';
+
+      successMessage.innerHTML = `
+        <strong>${entreprise}</strong>, votre compte fournisseur a été créé avec succès !<br>
+        <span style="font-size:13px;color:#6b7280;">
+          Email : ${email} · Wilaya : ${ville}<br>
+          Services : ${servicesText}
+          ${description ? `· Description : "${description.substring(0, 50)}${description.length > 50 ? '...' : ''}"` : ''}
+        </span>
+      `;
+      successArea.classList.add('visible');
+
+      // Faire défiler jusqu'au message de succès
+      successArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Masquer le message après 6 secondes
+      setTimeout(() => {
+        successArea.classList.remove('visible');
+      }, 6000);
+    });
+  </script>
   <script src="../js/script.js"></script>
 </body>
 </html>
