@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Explorer les fournisseurs · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f6f9fc;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ---------- EN-TÊTE DE CATÉGORIE ---------- */
+    .category-header {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      border-radius: 24px;
+      padding: 28px 36px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25);
+    }
+
+    .category-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-header h1 i {
+      font-size: 30px;
+    }
+
+    .category-header .badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ---------- LIEN RETOUR ---------- */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4f46e5;
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+      color: #7c3aed;
+    }
+
+    /* ---------- BARRE DE FILTRE ---------- */
+    .filter-bar {
+      background: white;
+      padding: 16px 24px;
+      border-radius: 60px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 18px;
+      border: 1px solid #eef2f6;
+    }
+
+    .filter-bar .filter-label {
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-bar .filter-label i {
+      color: #7c3aed;
+    }
+
+    .category-btn {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .category-btn:hover {
+      background: #eef2ff;
+      border-color: #818cf8;
+      color: #4f46e5;
+    }
+
+    .category-btn.active {
+      background: #7c3aed;
+      border-color: #7c3aed;
+      color: white;
+      box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+    }
+
+    .category-btn i {
+      font-size: 14px;
+    }
+
+    /* ---------- GRILLE DES CARTES ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 26px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      border: 1px solid #edf2f7;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.07);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+      border-radius: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+    }
+
+    .card-image .emoji {
+      font-size: 56px;
+    }
+
+    .card-category {
+      display: inline-block;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .card-location {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-location i {
+      color: #7c3aed;
+      font-size: 13px;
+    }
+
+    .stars {
+      color: #fbbf24;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .card-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #7c3aed;
+      margin-top: 10px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .card-tags span {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 11px;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ---------- COMPTEUR DE RÉSULTATS ---------- */
+    .results-count {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+
+    .results-count strong {
+      color: #0f172a;
+    }
+
+    /* ---------- MESSAGE AUCUN RÉSULTAT ---------- */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+    }
+
+    .no-results i {
+      font-size: 48px;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .no-results h3 {
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .category-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+      }
+
+      .category-header h1 {
+        font-size: 22px;
+        justify-content: center;
+      }
+
+      .filter-bar {
+        padding: 12px 16px;
+        border-radius: 24px;
+        justify-content: center;
+      }
+
+      .filter-bar .filter-label {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-header h1 {
+        font-size: 20px;
+      }
+
+      .category-btn {
+        font-size: 12px;
+        padding: 4px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Lien retour -->
+    <a href="../index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+
+    <!-- En-tête -->
+    <div class="category-header">
+      <div>
+        <h1><i class="fas fa-handshake"></i> Fournisseurs d'événements</h1>
+        <div style="font-size: 16px; opacity: 0.85;">
+          Trouvez les meilleurs prestataires pour votre événement
+        </div>
+      </div>
+      <div class="badge">
+        <i class="fas fa-star"></i> 6 catégories de services
+      </div>
+    </div>
+
+    <!-- Barre de filtres -->
+    <div class="filter-bar">
+      <span class="filter-label">
+        <i class="fas fa-filter"></i> Catégorie :
+      </span>
+      <button class="category-btn active" data-category="all">
+        <i class="fas fa-th-large"></i> Tous
+      </button>
+      <button class="category-btn" data-category="chef-traiteur">
+        <i class="fas fa-utensils"></i> Chef & Traiteur
+      </button>
+      <button class="category-btn" data-category="serveurs-service">
+        <i class="fas fa-waiter"></i> Serveurs & Service
+      </button>
+      <button class="category-btn" data-category="dj-artiste">
+        <i class="fas fa-music"></i> DJ & Artiste
+      </button>
+      <button class="category-btn" data-category="decoration">
+        <i class="fas fa-paint-brush"></i> Décoration
+      </button>
+      <button class="category-btn" data-category="audiovisuel">
+        <i class="fas fa-video"></i> Matériel Audiovisuel
+      </button>
+      <button class="category-btn" data-category="location-voiture">
+        <i class="fas fa-car"></i> Location de voiture
+      </button>
+    </div>
+
+    <!-- Compteur -->
+    <div class="results-count" id="resultsCount">
+      Affichage de <strong id="countDisplay">0</strong> fournisseurs
+    </div>
+
+    <!-- Grille -->
+    <div class="grid" id="cardGrid"></div>
+  </div>
+
+  <script>
+    // ---- BASE DE DONNÉES DES FOURNISSEURS ----
+    const fournisseurs = [
+      // ---- Chef & Traiteur ----
+      {
+        id: 1,
+        nom: "Chef Mohamed Amine",
+        categorie: "chef-traiteur",
+        wilaya: "Alger",
+        note: 4.9,
+        avis: 156,
+        emoji: "👨‍🍳",
+        prix: "À partir de 25 000 DA",
+        tags: ["Cuisine orientale", "Fusion", "Menu dégustation"]
+      },
+      {
+        id: 2,
+        nom: "Traiteur El Djazair",
+        categorie: "chef-traiteur",
+        wilaya: "Alger",
+        note: 4.8,
+        avis: 132,
+        emoji: "🍽️",
+        prix: "À partir de 20 000 DA",
+        tags: ["Cuisine algérienne", "Pâtisserie", "Service à table"]
+      },
+      {
+        id: 3,
+        nom: "Chef Samir",
+        categorie: "chef-traiteur",
+        wilaya: "Oran",
+        note: 4.7,
+        avis: 98,
+        emoji: "👨‍🍳",
+        prix: "À partir de 22 000 DA",
+        tags: ["Cuisine méditerranéenne", "Poissons", "Plancha"]
+      },
+      {
+        id: 4,
+        nom: "Traiteur Le Gourmet",
+        categorie: "chef-traiteur",
+        wilaya: "Constantine",
+        note: 4.6,
+        avis: 87,
+        emoji: "🍷",
+        prix: "À partir de 28 000 DA",
+        tags: ["Cuisine française", "Vins", "Fromages"]
+      },
+
+      // ---- Serveurs & Service ----
+      {
+        id: 5,
+        nom: "Service Prestige",
+        categorie: "serveurs-service",
+        wilaya: "Alger",
+        note: 4.7,
+        avis: 112,
+        emoji: "🤵",
+        prix: "À partir de 15 000 DA",
+        tags: ["Service à table", "Majordome", "Tenue de cérémonie"]
+      },
+      {
+        id: 6,
+        nom: "Équipe El Bahia",
+        categorie: "serveurs-service",
+        wilaya: "Oran",
+        note: 4.6,
+        avis: 76,
+        emoji: "👔",
+        prix: "À partir de 12 000 DA",
+        tags: ["Personnel qualifié", "Service buffet", "Dressage"]
+      },
+
+      // ---- DJ & Artiste ----
+      {
+        id: 7,
+        nom: "DJ Kader Mix",
+        categorie: "dj-artiste",
+        wilaya: "Alger",
+        note: 4.9,
+        avis: 203,
+        emoji: "🎧",
+        prix: "À partir de 30 000 DA",
+        tags: ["House", "Tech", "Mariage", "Anniversaire"]
+      },
+      {
+        id: 8,
+        nom: "DJ Chawki",
+        categorie: "dj-artiste",
+        wilaya: "Oran",
+        note: 4.8,
+        avis: 167,
+        emoji: "🎵",
+        prix: "À partir de 25 000 DA",
+        tags: ["Raï", "Oriental", "Mix"]
+      },
+      {
+        id: 9,
+        nom: "Groupe El Anka",
+        categorie: "dj-artiste",
+        wilaya: "Constantine",
+        note: 4.7,
+        avis: 89,
+        emoji: "🎶",
+        prix: "À partir de 35 000 DA",
+        tags: ["Musique andalouse", "Groupe", "Traditionnel"]
+      },
+
+      // ---- Décoration ----
+      {
+        id: 10,
+        nom: "Décoration Elégance",
+        categorie: "decoration",
+        wilaya: "Alger",
+        note: 4.9,
+        avis: 178,
+        emoji: "💐",
+        prix: "À partir de 18 000 DA",
+        tags: ["Fleurs", "Lumière", "Mobilier"]
+      },
+      {
+        id: 11,
+        nom: "Décoration Oran",
+        categorie: "decoration",
+        wilaya: "Oran",
+        note: 4.6,
+        avis: 94,
+        emoji: "🎨",
+        prix: "À partir de 15 000 DA",
+        tags: ["Scénographie", "Ballons", "Rideaux"]
+      },
+      {
+        id: 12,
+        nom: "Dream Déco",
+        categorie: "decoration",
+        wilaya: "Blida",
+        note: 4.5,
+        avis: 67,
+        emoji: "✨",
+        prix: "À partir de 20 000 DA",
+        tags: ["Thème personnalisé", "Mariage", "Anniversaire"]
+      },
+
+      // ---- Matériel Audiovisuel ----
+      {
+        id: 13,
+        nom: "AV PRO",
+        categorie: "audiovisuel",
+        wilaya: "Alger",
+        note: 4.8,
+        avis: 145,
+        emoji: "📹",
+        prix: "À partir de 22 000 DA",
+        tags: ["Sonorisation", "Éclairage", "Écrans LED"]
+      },
+      {
+        id: 14,
+        nom: "Studio Lumière",
+        categorie: "audiovisuel",
+        wilaya: "Constantine",
+        note: 4.7,
+        avis: 88,
+        emoji: "💡",
+        prix: "À partir de 20 000 DA",
+        tags: ["Projection", "Photographie", "Vidéo"]
+      },
+      {
+        id: 15,
+        nom: "Sound System",
+        categorie: "audiovisuel",
+        wilaya: "Oran",
+        note: 4.6,
+        avis: 73,
+        emoji: "🔊",
+        prix: "À partir de 18 000 DA",
+        tags: ["Sonorisation", "Micros", "Enceintes"]
+      },
+
+      // ---- Location de voiture ----
+      {
+        id: 16,
+        nom: "Elite Cars",
+        categorie: "location-voiture",
+        wilaya: "Alger",
+        note: 4.7,
+        avis: 156,
+        emoji: "🚗",
+        prix: "À partir de 30 000 DA",
+        tags: ["Berlines", "SUV", "Chauffeur"]
+      },
+      {
+        id: 17,
+        nom: "Prestige Auto",
+        categorie: "location-voiture",
+        wilaya: "Oran",
+        note: 4.6,
+        avis: 89,
+        emoji: "🚙",
+        prix: "À partir de 25 000 DA",
+        tags: ["Sportives", "Cérémonie", "Cortège"]
+      },
+      {
+        id: 18,
+        nom: "Dream Drive",
+        categorie: "location-voiture",
+        wilaya: "Annaba",
+        note: 4.5,
+        avis: 56,
+        emoji: "🚘",
+        prix: "À partir de 22 000 DA",
+        tags: ["Voitures de luxe", "Chauffeur privé"]
+      }
+    ];
+
+    // ---- FONCTIONS UTILITAIRES ----
+    function getStars(note) {
+      const full = Math.floor(note);
+      const half = (note - full) >= 0.5 ? 1 : 0;
+      const empty = 5 - full - half;
+      return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+    }
+
+    function getCategoryIcon(categorie) {
+      const icons = {
+        'chef-traiteur': '🍽️',
+        'serveurs-service': '🤵',
+        'dj-artiste': '🎧',
+        'decoration': '🎨',
+        'audiovisuel': '📹',
+        'location-voiture': '🚗'
+      };
+      return icons[categorie] || '📌';
+    }
+
+    function getCategoryLabel(categorie) {
+      const labels = {
+        'chef-traiteur': 'Chef & Traiteur',
+        'serveurs-service': 'Serveurs & Service',
+        'dj-artiste': 'DJ & Artiste',
+        'decoration': 'Décoration',
+        'audiovisuel': 'Matériel Audiovisuel',
+        'location-voiture': 'Location de voiture'
+      };
+      return labels[categorie] || categorie;
+    }
+
+    // ---- RENDU DES CARTES ----
+    function renderCards(category = 'all') {
+      const grid = document.getElementById('cardGrid');
+      const countDisplay = document.getElementById('countDisplay');
+      
+      let filtered = fournisseurs;
+      if (category !== 'all') {
+        filtered = fournisseurs.filter(f => f.categorie === category);
+      }
+      
+      // Trier par note décroissante
+      filtered.sort((a, b) => b.note - a.note);
+      
+      // Mettre à jour le compteur
+      countDisplay.textContent = filtered.length;
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h3>Aucun fournisseur trouvé</h3>
+            <p>Essayez une autre catégorie ou revenez plus tard.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      filtered.forEach((f) => {
+        const starsStr = getStars(f.note);
+        const catIcon = getCategoryIcon(f.categorie);
+        const catLabel = getCategoryLabel(f.categorie);
+        
+        html += `
+          <div class="card" onclick="window.location.href='fiche-fournisseur.html?id=${f.id}'">
+            <div class="card-image">
+              <span class="emoji">${f.emoji}</span>
+            </div>
+            <div class="card-category">
+              <i class="fas fa-tag"></i> ${catLabel}
+            </div>
+            <div class="card-title">${f.nom}</div>
+            <div class="card-location">
+              <i class="fas fa-location-dot"></i> ${f.wilaya}
+            </div>
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 6px;">
+              <span class="stars">${starsStr}</span>
+              <span style="color: #0f172a; font-weight: 700;">${f.note.toFixed(1)}</span>
+              <span style="color: #94a3b8;">(${f.avis} avis)</span>
+            </div>
+            <div class="card-tags">
+              ${f.tags.map(tag => `<span>#${tag}</span>`).join('')}
+            </div>
+            <div class="card-price">💰 ${f.prix}</div>
+          </div>
+        `;
+      });
+      
+      grid.innerHTML = html;
+    }
+
+    // ---- GESTION DES FILTRES ----
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Désactiver tous les boutons
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        // Activer celui cliqué
+        this.classList.add('active');
+        // Filtrer
+        renderCards(this.dataset.category);
+      });
+    });
+
+    // ---- INITIALISATION ----
+    renderCards('all');
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
