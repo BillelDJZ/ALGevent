@@ -10,22 +10,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* ---------- RESET & BASE ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* ---------- STYLES SPÉCIFIQUES À L'ACCUEIL ---------- */
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
       background: #f6f9fc;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      font-family: 'Inter', -apple-system, sans-serif;
     }
 
-    /* ---------- HEADER (identique) ---------- */
+    /* ---------- HEADER ---------- */
     header {
       display: flex;
       justify-content: space-between;
@@ -44,6 +38,7 @@
       font-weight: 800;
       letter-spacing: -0.5px;
     }
+
     .logo .a { color: #1877f2; }
     .logo .l { color: #31a24c; }
     .logo .g { color: #f7b731; }
@@ -97,6 +92,7 @@
       justify-content: center;
     }
 
+    /* ---------- HERO ---------- */
     .hero-title {
       font-size: 2.8rem;
       font-weight: 800;
@@ -122,7 +118,7 @@
       line-height: 1.6;
     }
 
-    /* ---------- GRILLE DES BOUTONS ---------- */
+    /* ---------- ACTION CARDS ---------- */
     .action-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -152,6 +148,13 @@
       font-size: 1.4rem;
     }
 
+    .action-card .badge {
+      padding: 2px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
     /* --- Carte Salles (bleue) --- */
     .action-card.salles {
       background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
@@ -166,10 +169,6 @@
 
     .action-card.salles .badge {
       background: rgba(255,255,255,0.2);
-      padding: 2px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
     }
 
     /* --- Carte Fournisseurs (verte) --- */
@@ -186,13 +185,9 @@
 
     .action-card.fournisseurs .badge {
       background: rgba(255,255,255,0.2);
-      padding: 2px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
     }
 
-    /* ---------- STATS (optionnel) ---------- */
+    /* ---------- STATISTIQUES ---------- */
     .stats {
       display: flex;
       justify-content: center;
@@ -211,15 +206,15 @@
       color: #1a1a2e;
     }
 
+    .stat-item .number.blue { color: #1877f2; }
+    .stat-item .number.green { color: #31a24c; }
+    .stat-item .number.gold { color: #f7b731; }
+
     .stat-item .label {
       font-size: 14px;
       color: #65676b;
       font-weight: 500;
     }
-
-    .stat-item .number.blue { color: #1877f2; }
-    .stat-item .number.green { color: #31a24c; }
-    .stat-item .number.gold { color: #f7b731; }
 
     /* ---------- FOOTER ---------- */
     footer {
@@ -324,6 +319,23 @@
 
       .stat-item .number {
         font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-title {
+        font-size: 1.4rem;
+      }
+
+      .action-card {
+        font-size: 0.8rem;
+        padding: 14px 16px;
+        min-height: 48px;
+      }
+
+      .action-card .badge {
+        font-size: 9px;
+        padding: 1px 10px;
       }
     }
   </style>
