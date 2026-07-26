@@ -141,6 +141,44 @@
       font-size: 14px;
     }
 
+    .category-btn .count {
+      background: rgba(0,0,0,0.08);
+      padding: 0 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .category-btn.active .count {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    /* ---------- RÉSULTATS ---------- */
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .results-count {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .results-count strong {
+      color: #0f172a;
+    }
+
+    .results-count .category-name {
+      color: #7c3aed;
+      font-weight: 700;
+    }
+
     /* ---------- GRILLE DES CARTES ---------- */
     .grid {
       display: grid;
@@ -154,8 +192,20 @@
       padding: 20px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       border: 1px solid #edf2f7;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s ease;
       cursor: pointer;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card:hover {
@@ -242,25 +292,13 @@
       font-weight: 500;
     }
 
-    /* ---------- COMPTEUR DE RÉSULTATS ---------- */
-    .results-count {
-      color: #64748b;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      padding-left: 4px;
-    }
-
-    .results-count strong {
-      color: #0f172a;
-    }
-
     /* ---------- MESSAGE AUCUN RÉSULTAT ---------- */
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
       padding: 60px 20px;
       color: #94a3b8;
+      animation: fadeIn 0.4s ease;
     }
 
     .no-results i {
@@ -321,12 +359,17 @@
         font-size: 12px;
         padding: 4px 12px;
       }
+
+      .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Lien retour vers l'accueil (corrigé) -->
+    <!-- Lien retour -->
     <a href="../index.html" class="back-link">
       <i class="fas fa-arrow-left"></i> Retour à l'accueil
     </a>
@@ -351,30 +394,40 @@
       </span>
       <button class="category-btn active" data-category="all">
         <i class="fas fa-th-large"></i> Tous
+        <span class="count" id="count-all">18</span>
       </button>
       <button class="category-btn" data-category="chef-traiteur">
         <i class="fas fa-utensils"></i> Chef & Traiteur
+        <span class="count" id="count-chef-traiteur">4</span>
       </button>
       <button class="category-btn" data-category="serveurs-service">
         <i class="fas fa-waiter"></i> Serveurs & Service
+        <span class="count" id="count-serveurs-service">2</span>
       </button>
       <button class="category-btn" data-category="dj-artiste">
         <i class="fas fa-music"></i> DJ & Artiste
+        <span class="count" id="count-dj-artiste">3</span>
       </button>
       <button class="category-btn" data-category="decoration">
         <i class="fas fa-paint-brush"></i> Décoration
+        <span class="count" id="count-decoration">3</span>
       </button>
       <button class="category-btn" data-category="audiovisuel">
         <i class="fas fa-video"></i> Matériel Audiovisuel
+        <span class="count" id="count-audiovisuel">3</span>
       </button>
       <button class="category-btn" data-category="location-voiture">
         <i class="fas fa-car"></i> Location de voiture
+        <span class="count" id="count-location-voiture">3</span>
       </button>
     </div>
 
-    <!-- Compteur -->
-    <div class="results-count" id="resultsCount">
-      Affichage de <strong id="countDisplay">0</strong> fournisseurs
+    <!-- Résultats -->
+    <div class="results-header">
+      <div class="results-count" id="resultsCount">
+        Affichage de <strong id="countDisplay">18</strong> fournisseurs
+        <span id="categoryDisplay" class="category-name"></span>
+      </div>
     </div>
 
     <!-- Grille -->
@@ -603,18 +656,6 @@
       return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
     }
 
-    function getCategoryIcon(categorie) {
-      const icons = {
-        'chef-traiteur': '🍽️',
-        'serveurs-service': '🤵',
-        'dj-artiste': '🎧',
-        'decoration': '🎨',
-        'audiovisuel': '📹',
-        'location-voiture': '🚗'
-      };
-      return icons[categorie] || '📌';
-    }
-
     function getCategoryLabel(categorie) {
       const labels = {
         'chef-traiteur': 'Chef & Traiteur',
@@ -627,14 +668,33 @@
       return labels[categorie] || categorie;
     }
 
+    function getCategoryEmoji(categorie) {
+      const emojis = {
+        'chef-traiteur': '🍽️',
+        'serveurs-service': '🤵',
+        'dj-artiste': '🎧',
+        'decoration': '🎨',
+        'audiovisuel': '📹',
+        'location-voiture': '🚗'
+      };
+      return emojis[categorie] || '📌';
+    }
+
     // ---- RENDU DES CARTES ----
     function renderCards(category = 'all') {
       const grid = document.getElementById('cardGrid');
       const countDisplay = document.getElementById('countDisplay');
+      const categoryDisplay = document.getElementById('categoryDisplay');
       
       let filtered = fournisseurs;
+      let categoryName = '';
+
       if (category !== 'all') {
         filtered = fournisseurs.filter(f => f.categorie === category);
+        categoryName = getCategoryLabel(category);
+        categoryDisplay.textContent = `· ${categoryName}`;
+      } else {
+        categoryDisplay.textContent = '';
       }
       
       // Trier par note décroissante
@@ -655,13 +715,13 @@
       }
       
       let html = '';
-      filtered.forEach((f) => {
+      filtered.forEach((f, index) => {
         const starsStr = getStars(f.note);
-        const catIcon = getCategoryIcon(f.categorie);
         const catLabel = getCategoryLabel(f.categorie);
+        const catEmoji = getCategoryEmoji(f.categorie);
         
         html += `
-          <div class="card" onclick="window.location.href='fiche-fournisseur.html?id=${f.id}'">
+          <div class="card" style="animation-delay: ${index * 0.05}s" onclick="window.location.href='fiche-fournisseur.html?id=${f.id}'">
             <div class="card-image">
               <span class="emoji">${f.emoji}</span>
             </div>
