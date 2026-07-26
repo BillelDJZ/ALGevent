@@ -30,9 +30,9 @@
       margin: 0 auto;
     }
 
-    /* ---------- EN-TÊTE ---------- */
+    /* ---------- EN-TÊTE (identique à Explorer) ---------- */
     .page-header {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .page-header h1 {
@@ -41,11 +41,11 @@
       color: #1a1a2e;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .page-header h1 i {
-      color: #6a4cf7;
+      color: #4a6cf7;
       font-size: 28px;
     }
 
@@ -56,17 +56,17 @@
       font-weight: 500;
     }
 
-    /* ---------- CHAMPS DU FORMULAIRE ---------- */
+    /* ---------- CHAMPS (identiques à Explorer) ---------- */
     .field-label {
       font-size: 15px;
       font-weight: 600;
       color: #1f2937;
       display: block;
-      margin: 20px 0 6px;
+      margin: 24px 0 6px;
     }
 
     .field-label i {
-      color: #6a4cf7;
+      color: #4a6cf7;
       margin-right: 6px;
       width: 20px;
     }
@@ -93,9 +93,9 @@
     .custom-input:focus,
     .custom-select:focus,
     .custom-textarea:focus {
-      border-color: #6a4cf7;
+      border-color: #4a6cf7;
       outline: none;
-      box-shadow: 0 0 0 4px rgba(106, 76, 247, 0.10);
+      box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.10);
     }
 
     .custom-input::placeholder,
@@ -106,7 +106,7 @@
 
     .custom-select {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a4cf7' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6cf7' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 16px center;
       cursor: pointer;
@@ -123,7 +123,7 @@
       max-height: 150px;
     }
 
-    /* ---------- INDICATEUR DE MOT DE PASSE ---------- */
+    /* ---------- INDICATEUR DE MOT DE PASSE (identique) ---------- */
     .password-hint {
       font-size: 12px;
       color: #9ca3af;
@@ -141,7 +141,7 @@
       color: #22c55e;
     }
 
-    /* ---------- SECTION SERVICES (CHECKBOXES) ---------- */
+    /* ---------- SERVICES (checkboxes stylisées) ---------- */
     .services-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -165,24 +165,24 @@
     }
 
     .service-check:hover {
-      border-color: #a78bfa;
-      background: #f5f3ff;
+      border-color: #4a6cf7;
+      background: #eef3ff;
     }
 
     .service-check input[type="checkbox"] {
       width: 18px;
       height: 18px;
-      accent-color: #6a4cf7;
+      accent-color: #4a6cf7;
       cursor: pointer;
       flex-shrink: 0;
     }
 
     .service-check.selected {
-      border-color: #6a4cf7;
-      background: #f5f3ff;
+      border-color: #4a6cf7;
+      background: #eef3ff;
     }
 
-    /* ---------- INDICATEUR DE SÉLECTION ---------- */
+    /* ---------- INDICATEUR DE SÉLECTION (identique à Explorer) ---------- */
     .selection-indicator {
       display: inline-block;
       font-size: 12px;
@@ -195,15 +195,15 @@
     }
 
     .selection-indicator.active {
-      background: #ede9fe;
-      color: #5b21b6;
+      background: #dbeafe;
+      color: #1e40af;
     }
 
-    /* ---------- BOUTON ---------- */
+    /* ---------- BOUTON (identique à Explorer) ---------- */
     .btn-register {
       width: 100%;
       padding: 16px;
-      background: linear-gradient(135deg, #6a4cf7 0%, #4a6cf7 100%);
+      background: linear-gradient(135deg, #4a6cf7 0%, #6a4cf7 100%);
       border: none;
       border-radius: 60px;
       color: #fff;
@@ -211,7 +211,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 8px 24px rgba(106, 76, 247, 0.30);
+      box-shadow: 0 8px 24px rgba(74, 108, 247, 0.30);
       margin-top: 8px;
       display: flex;
       align-items: center;
@@ -228,7 +228,7 @@
       font-size: 18px;
     }
 
-    /* ---------- MESSAGE DE SUCCÈS ---------- */
+    /* ---------- ZONE DE RÉSULTAT (identique à Explorer) ---------- */
     .results-area {
       margin-top: 24px;
       padding: 18px 20px;
@@ -260,7 +260,12 @@
       margin: 0;
     }
 
-    /* ---------- LIEN DE CONNEXION ---------- */
+    .results-area .highlight {
+      color: #4a6cf7;
+      font-weight: 600;
+    }
+
+    /* ---------- LIEN DE CONNEXION (identique à Explorer) ---------- */
     .login-link {
       text-align: center;
       margin-top: 24px;
@@ -270,18 +275,18 @@
     }
 
     .login-link a {
-      color: #6a4cf7;
+      color: #4a6cf7;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s;
     }
 
     .login-link a:hover {
-      color: #4a6cf7;
+      color: #6a4cf7;
       text-decoration: underline;
     }
 
-    /* ---------- RESPONSIVE ---------- */
+    /* ---------- RESPONSIVE (identique à Explorer) ---------- */
     @media (max-width: 480px) {
       .app-container {
         padding: 20px 16px 28px;
@@ -323,7 +328,7 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- En-tête -->
+    <!-- En-tête (identique à Explorer) -->
     <div class="page-header">
       <h1>
         <i class="fas fa-handshake"></i> Devenir fournisseur
@@ -384,7 +389,7 @@
         <i class="fas fa-info-circle"></i> 8 caractères minimum
       </div>
 
-      <!-- Wilaya -->
+      <!-- Wilaya (identique à Explorer) -->
       <label class="field-label" for="ville">
         <i class="fas fa-location-dot"></i> Wilaya <span class="required">*</span>
       </label>
@@ -400,7 +405,7 @@
         <option value="Tizi Ouzou">Tizi Ouzou</option>
       </select>
 
-      <!-- Indicateur de sélection (ville) -->
+      <!-- Indicateur de sélection (identique à Explorer) -->
       <div id="villeIndicator" class="selection-indicator">
         <i class="fas fa-map-pin"></i> Aucune wilaya sélectionnée
       </div>
@@ -430,7 +435,7 @@
         </label>
       </div>
 
-      <!-- Indicateur de sélection (services) -->
+      <!-- Indicateur de sélection des services -->
       <div id="servicesIndicator" class="selection-indicator">
         <i class="fas fa-check-circle"></i> Aucun service sélectionné
       </div>
@@ -445,26 +450,26 @@
         placeholder="Présentez votre entreprise, vos spécialités, vos atouts..."
       ></textarea>
 
-      <!-- Bouton -->
+      <!-- Bouton (identique à Explorer) -->
       <button type="submit" class="btn-register">
         <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte fournisseur
       </button>
     </form>
 
-    <!-- Zone de résultat (succès) -->
+    <!-- Zone de résultat (identique à Explorer) -->
     <div class="results-area" id="successArea">
       <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
       <p id="successMessage">Votre compte fournisseur a été créé avec succès.</p>
     </div>
 
-    <!-- Lien vers connexion -->
+    <!-- Lien de connexion (identique à Explorer) -->
     <div class="login-link">
       Vous avez déjà un compte fournisseur ? <a href="connexion-fournisseur.html">Se connecter</a>
     </div>
   </div>
 
   <script>
-    // ---- Gestion de la sélection de la ville ----
+    // ---- Gestion de la sélection de la ville (identique à Explorer) ----
     const villeSelect = document.getElementById('ville');
     const villeIndicator = document.getElementById('villeIndicator');
 
@@ -484,7 +489,6 @@
 
     serviceChecks.forEach(checkbox => {
       checkbox.addEventListener('change', function() {
-        // Mettre à jour le style du parent
         this.closest('.service-check').classList.toggle('selected', this.checked);
         updateServicesIndicator();
       });
@@ -493,8 +497,7 @@
     function updateServicesIndicator() {
       const checked = document.querySelectorAll('.service-check input:checked');
       if (checked.length > 0) {
-        const names = Array.from(checked).map(cb => cb.value);
-        const displayNames = names.map(name => {
+        const names = Array.from(checked).map(cb => {
           const map = {
             'traiteur': 'Traiteur',
             'decoration': 'Décoration',
@@ -503,9 +506,9 @@
             'animation': 'Animation',
             'location': 'Location'
           };
-          return map[name] || name;
+          return map[cb.value] || cb.value;
         });
-        servicesIndicator.textContent = `✅ ${displayNames.join(', ')}`;
+        servicesIndicator.textContent = `✅ ${names.join(', ')}`;
         servicesIndicator.className = 'selection-indicator active';
       } else {
         servicesIndicator.textContent = '❌ Aucun service sélectionné';
@@ -513,7 +516,7 @@
       }
     }
 
-    // ---- Validation du mot de passe en temps réel ----
+    // ---- Validation du mot de passe (identique à Explorer) ----
     const passwordInput = document.getElementById('password');
     const passwordHint = document.getElementById('passwordHint');
 
@@ -536,7 +539,6 @@
     registerForm.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Récupération des valeurs
       const entreprise = document.getElementById('entreprise').value.trim();
       const email = document.getElementById('email').value.trim();
       const telephone = document.getElementById('telephone').value.trim();
@@ -546,7 +548,6 @@
       const services = document.querySelectorAll('.service-check input:checked');
       const servicesList = Array.from(services).map(cb => cb.value);
 
-      // Validations
       if (!entreprise || !email || !password || !ville) {
         alert('⚠️ Veuillez remplir tous les champs obligatoires (*).');
         return;
@@ -557,7 +558,6 @@
         return;
       }
 
-      // Simuler l'envoi (succès)
       let servicesText = servicesList.length > 0 
         ? servicesList.map(s => {
             const map = {
@@ -582,10 +582,8 @@
       `;
       successArea.classList.add('visible');
 
-      // Faire défiler jusqu'au message de succès
       successArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      // Masquer le message après 6 secondes
       setTimeout(() => {
         successArea.classList.remove('visible');
       }, 6000);
