@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mot de passe oublié · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="icon-wrap"><i class="fas fa-key"></i></div>
+        <span class="eyebrow">Réinitialisation</span>
+        <h1>Mot de passe oublié ?</h1>
+        <p>Entrez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
+      </div>
+
+      <form id="resetForm">
+        <div class="field">
+          <label for="email"><i class="fas fa-envelope"></i> Adresse e-mail</label>
+          <input type="email" id="email" placeholder="vous@exemple.com" required />
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Envoyer le lien
+        </button>
+      </form>
+
+      <div class="results-area" id="successArea">
+        <h3><i class="fas fa-check-circle"></i> E-mail envoyé !</h3>
+        <p id="successMessage">Si un compte existe pour cette adresse, vous recevrez un lien de réinitialisation.</p>
+      </div>
+
+      <div class="auth-links">
+        <a href="connexion.html"><i class="fas fa-arrow-right-to-bracket"></i> Retour à la connexion</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('resetForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        alert('⚠️ Veuillez saisir une adresse e-mail valide.');
+        return;
+      }
+
+      document.getElementById('successMessage').textContent = `Si un compte existe pour ${email}, vous recevrez un lien de réinitialisation dans quelques instants.`;
+      document.getElementById('successArea').classList.add('visible');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

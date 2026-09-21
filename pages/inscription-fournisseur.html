@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALGevent · Inscription fournisseur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="icon-wrap"><i class="fas fa-handshake"></i></div>
+        <span class="eyebrow">Prestataire</span>
+        <h1>Devenir fournisseur</h1>
+        <p>Inscrivez votre entreprise et rejoignez notre réseau de prestataires.</p>
+      </div>
+
+      <form id="supplierForm">
+        <div class="field">
+          <label for="entreprise"><i class="fas fa-building"></i> Nom de l'entreprise</label>
+          <input type="text" id="entreprise" placeholder="Nom de votre société" required />
+        </div>
+
+        <div class="field">
+          <label for="email"><i class="fas fa-envelope"></i> Email professionnel</label>
+          <input type="email" id="email" placeholder="contact@entreprise.com" required />
+        </div>
+
+        <div class="field">
+          <label for="telephone"><i class="fas fa-phone"></i> Téléphone</label>
+          <input type="tel" id="telephone" placeholder="05 XX XX XX XX" />
+        </div>
+
+        <div class="field">
+          <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+          <input type="password" id="password" placeholder="Minimum 8 caractères" required minlength="8" />
+          <div id="passwordHint" class="password-hint"><i class="fas fa-info-circle"></i> 8 caractères minimum</div>
+        </div>
+
+        <div class="field">
+          <label for="ville"><i class="fas fa-location-dot"></i> Wilaya</label>
+          <select id="ville" class="custom-select" required>
+            <option value="">-- Choisissez votre wilaya --</option>
+            <option value="Alger">Alger</option>
+            <option value="Oran">Oran</option>
+            <option value="Constantine">Constantine</option>
+            <option value="Annaba">Annaba</option>
+            <option value="Blida">Blida</option>
+            <option value="Batna">Batna</option>
+            <option value="Sétif">Sétif</option>
+            <option value="Tizi Ouzou">Tizi Ouzou</option>
+          </select>
+          <div id="villeIndicator" class="selection-indicator">📍 Aucune wilaya sélectionnée</div>
+        </div>
+
+        <div class="field">
+          <label><i class="fas fa-cogs"></i> Services proposés</label>
+          <div class="service-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;">
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Traiteur" /> Traiteur
+            </label>
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Décoration" /> Décoration
+            </label>
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Sonorisation" /> Sonorisation
+            </label>
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Photographie" /> Photographie
+            </label>
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Animation" /> Animation
+            </label>
+            <label class="service-check" style="display:flex; align-items:center; gap:8px; padding:10px 12px; background:#fafbfc; border:2px solid #e5e7eb; border-radius:12px;">
+              <input type="checkbox" value="Location" /> Location
+            </label>
+          </div>
+          <div id="servicesIndicator" class="selection-indicator">❌ Aucun service sélectionné</div>
+        </div>
+
+        <button type="submit" class="btn-register">
+          <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte fournisseur
+        </button>
+      </form>
+
+      <div class="results-area" id="successArea">
+        <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
+        <p id="successMessage">Votre compte fournisseur a été créé avec succès.</p>
+      </div>
+
+      <div class="login-link-box">
+        Vous avez déjà un compte fournisseur ? <a href="connexion.html">Se connecter</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const ville = document.getElementById('ville');
+    const villeIndicator = document.getElementById('villeIndicator');
+    ville.addEventListener('change', function () {
+      villeIndicator.textContent = this.value ? `📍 Wilaya : ${this.value}` : '📍 Aucune wilaya sélectionnée';
+      villeIndicator.classList.toggle('active', !!this.value);
+    });
+
+    const password = document.getElementById('password');
+    const passwordHint = document.getElementById('passwordHint');
+    password.addEventListener('input', function () {
+      const value = this.value.trim();
+      if (!value) {
+        passwordHint.innerHTML = '<i class="fas fa-info-circle"></i> 8 caractères minimum';
+        passwordHint.className = 'password-hint';
+        return;
+      }
+      if (value.length >= 8) {
+        passwordHint.innerHTML = '<i class="fas fa-check-circle"></i> Mot de passe valide';
+        passwordHint.className = 'password-hint valid';
+      } else {
+        const remaining = 8 - value.length;
+        passwordHint.innerHTML = `<i class="fas fa-info-circle"></i> ${remaining} caractère${remaining > 1 ? 's' : ''} restant${remaining > 1 ? 's' : ''}`;
+        passwordHint.className = 'password-hint';
+      }
+    });
+
+    document.querySelectorAll('.service-check input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.addEventListener('change', function () {
+        const selected = Array.from(document.querySelectorAll('.service-check input:checked'));
+        const indicator = document.getElementById('servicesIndicator');
+        if (!selected.length) {
+          indicator.textContent = '❌ Aucun service sélectionné';
+          indicator.classList.remove('active');
+          return;
+        }
+        indicator.textContent = `✅ ${selected.map(c => c.value).join(', ')}`;
+        indicator.classList.add('active');
+      });
+    });
+
+    document.getElementById('supplierForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const entreprise = document.getElementById('entreprise').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const passwordValue = document.getElementById('password').value.trim();
+      const villeValue = document.getElementById('ville').value;
+
+      if (!entreprise || !email || !passwordValue || !villeValue) {
+        alert('⚠️ Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+
+      if (passwordValue.length < 8) {
+        alert('⚠️ Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+
+      const selectedServices = Array.from(document.querySelectorAll('.service-check input:checked')).map((c) => c.value);
+      document.getElementById('successMessage').innerHTML = `
+        <strong>${entreprise}</strong>, votre compte fournisseur a été créé avec succès !<br>
+        <span style="font-size:13px;color:#6b7280;">Email : ${email} · Wilaya : ${villeValue} · Services : ${selectedServices.join(', ') || 'Aucun'}</span>
+      `;
+      document.getElementById('successArea').classList.add('visible');
+      this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>

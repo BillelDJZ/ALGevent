@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALGevent · Inscription client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="icon-wrap"><i class="fas fa-user-plus"></i></div>
+        <span class="eyebrow">Inscription</span>
+        <h1>Créer un compte</h1>
+        <p>Rejoignez ALGevent et trouvez la salle ou le fournisseur idéal.</p>
+      </div>
+
+      <form id="registerForm">
+        <div class="field">
+          <label for="nom"><i class="fas fa-user"></i> Nom complet</label>
+          <input type="text" id="nom" placeholder="Votre nom et prénom" required />
+        </div>
+
+        <div class="field">
+          <label for="email"><i class="fas fa-envelope"></i> Adresse e-mail</label>
+          <input type="email" id="email" placeholder="exemple@email.com" required />
+        </div>
+
+        <div class="field">
+          <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+          <input type="password" id="password" placeholder="Minimum 8 caractères" required minlength="8" />
+          <div id="passwordHint" class="password-hint"><i class="fas fa-info-circle"></i> 8 caractères minimum</div>
+        </div>
+
+        <div class="field">
+          <label for="ville"><i class="fas fa-location-dot"></i> Wilaya</label>
+          <select id="ville" class="custom-select" required>
+            <option value="">-- Choisissez votre wilaya --</option>
+            <option value="Alger">Alger</option>
+            <option value="Oran">Oran</option>
+            <option value="Constantine">Constantine</option>
+            <option value="Annaba">Annaba</option>
+            <option value="Blida">Blida</option>
+            <option value="Batna">Batna</option>
+            <option value="Sétif">Sétif</option>
+            <option value="Tizi Ouzou">Tizi Ouzou</option>
+          </select>
+          <div id="villeIndicator" class="selection-indicator">📍 Aucune wilaya sélectionnée</div>
+        </div>
+
+        <button type="submit" class="btn-register">
+          <i class="fas fa-arrow-right-to-bracket"></i> Créer mon compte
+        </button>
+      </form>
+
+      <div class="results-area" id="successArea">
+        <h3><i class="fas fa-check-circle"></i> Inscription réussie !</h3>
+        <p id="successMessage">Votre compte a été créé avec succès.</p>
+      </div>
+
+      <div class="login-link-box">
+        Vous avez déjà un compte ? <a href="connexion.html">Se connecter</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('ville').addEventListener('change', function () {
+      const indicator = document.getElementById('villeIndicator');
+      indicator.textContent = this.value ? `📍 Wilaya : ${this.value}` : '📍 Aucune wilaya sélectionnée';
+      indicator.classList.toggle('active', !!this.value);
+    });
+
+    document.getElementById('password').addEventListener('input', function () {
+      const hint = document.getElementById('passwordHint');
+      const value = this.value.trim();
+
+      if (!value) {
+        hint.innerHTML = '<i class="fas fa-info-circle"></i> 8 caractères minimum';
+        hint.className = 'password-hint';
+        return;
+      }
+
+      if (value.length >= 8) {
+        hint.innerHTML = '<i class="fas fa-check-circle"></i> Mot de passe valide';
+        hint.className = 'password-hint valid';
+      } else {
+        const remaining = 8 - value.length;
+        hint.innerHTML = `<i class="fas fa-info-circle"></i> ${remaining} caractère${remaining > 1 ? 's' : ''} restant${remaining > 1 ? 's' : ''}`;
+        hint.className = 'password-hint';
+      }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const nom = document.getElementById('nom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const ville = document.getElementById('ville').value;
+
+      if (!nom || !email || !password || !ville) {
+        alert('⚠️ Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+
+      if (password.length < 8) {
+        alert('⚠️ Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+
+      document.getElementById('successMessage').innerHTML = `
+        <strong>${nom}</strong>, votre compte a été créé avec succès !<br>
+        <span style="font-size:13px;color:#6b7280;">Email : ${email} · Wilaya : ${ville}</span>
+      `;
+      document.getElementById('successArea').classList.add('visible');
+      this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>

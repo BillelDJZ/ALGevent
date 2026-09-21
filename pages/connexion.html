@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo" aria-label="ALGevent logo">
+      <span class="alg-wrapper">
+        <span class="a">A</span>
+        <span class="l">L</span>
+        <span class="g">G</span>
+      </span>
+      <span class="event">event</span>
+    </div>
+    <div class="header-actions">
+      <a href="../index.html" class="login-link">
+        <i class="fas fa-arrow-left"></i> Retour
+      </a>
+    </div>
+  </header>
+
+  <main class="auth-shell">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="icon-wrap"><i class="fas fa-lock"></i></div>
+        <span class="eyebrow">Authentification</span>
+        <h1>Se connecter</h1>
+        <p>Connectez-vous à votre compte ALGevent.</p>
+      </div>
+
+      <div id="errorMessage" class="results-area">
+        <h3><i class="fas fa-exclamation-circle"></i> Attention</h3>
+        <p id="errorText">Identifiants incorrects. Veuillez réessayer.</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email"><i class="fas fa-envelope"></i> Adresse e-mail</label>
+          <input type="email" id="email" placeholder="exemple@email.com" required />
+        </div>
+
+        <div class="field">
+          <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+          <input type="password" id="password" placeholder="••••••••" required />
+          <div class="input-hint"><i class="fas fa-info-circle"></i> Minimum 8 caractères</div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="loginBtn">
+          <i class="fas fa-arrow-right-to-bracket"></i> Se connecter
+        </button>
+      </form>
+
+      <div class="auth-links">
+        <a href="mot-de-passe-oublie.html"><i class="fas fa-key"></i> Mot de passe oublié ?</a>
+      </div>
+
+      <div class="auth-divider">
+        Pas encore inscrit ?
+        <a href="inscription-client.html">Créer un compte</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="mono"><i class="fas fa-calendar-check"></i> ALGEVENT — © 2026</span>
+    <span class="mono"><i class="fas fa-shield-alt"></i> Connexion sécurisée</span>
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const error = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+
+      if (!email || !password) {
+        errorText.textContent = 'Veuillez remplir tous les champs.';
+        error.classList.add('visible');
+        return;
+      }
+
+      if (password.length < 8) {
+        errorText.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+        error.classList.add('visible');
+        return;
+      }
+
+      error.classList.remove('visible');
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
+      setTimeout(() => {
+        window.location.href = 'tableau-de-bord-client.html';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
