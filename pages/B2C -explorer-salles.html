@@ -12,7 +12,7 @@
   <style>
     body { background: #f6f9fc; padding: 24px; }
     .container { max-width: 1280px; width: 100%; margin: 0 auto; }
-    
+
     .category-header {
       background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
       border-radius: 24px;
@@ -26,9 +26,9 @@
       margin-bottom: 32px;
       box-shadow: 0 12px 30px rgba(24, 119, 242, 0.25);
     }
-    
+
     .category-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.3px; }
-    
+
     .category-header .badge {
       background: rgba(255,255,255,0.2);
       backdrop-filter: blur(4px);
@@ -37,64 +37,121 @@
       font-size: 14px;
       font-weight: 600;
     }
-    
+
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: white;
+      color: #1877f2;
       text-decoration: none;
       margin-bottom: 24px;
       font-weight: 600;
       transition: opacity 0.2s;
     }
-    
+
     .back-link:hover { opacity: 0.8; }
-    
-    .filter-bar {
+
+    /* ---------- BARRE DE FILTRES ---------- */
+    .filters-panel {
       background: white;
-      padding: 16px 24px;
-      border-radius: 60px;
+      border-radius: 24px;
+      padding: 20px 24px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid #eef2f6;
       margin-bottom: 32px;
+    }
+
+    .filters-row {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 10px 18px;
-      border: 1px solid #eef2f6;
+      gap: 16px;
+      align-items: flex-end;
     }
-    
-    .wilaya-btn {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      padding: 6px 18px;
-      border-radius: 40px;
+
+    .filter-group {
+      flex: 1 1 180px;
+      min-width: 160px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 10px 14px;
       font-size: 14px;
-      font-weight: 500;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #1e293b;
+      cursor: pointer;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+
+    .filter-group select:focus {
+      border-color: #1877f2;
+      outline: none;
+      background: #fff;
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .btn-reset {
+      padding: 10px 20px;
+      background: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
       color: #475569;
       cursor: pointer;
       transition: all 0.2s;
+      font-family: inherit;
     }
-    
-    .wilaya-btn:hover {
-      background: #eef2ff;
-      border-color: #818cf8;
-      color: #1877f2;
+
+    .btn-reset:hover {
+      background: #e2e8f0;
+      color: #1e293b;
     }
-    
-    .wilaya-btn.active {
+
+    /* ---------- COMPTEUR DE RÉSULTATS ---------- */
+    .results-count {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .results-count .num {
       background: #1877f2;
-      border-color: #1877f2;
       color: white;
-      box-shadow: 0 4px 10px rgba(24, 119, 242, 0.25);
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 14px;
     }
-    
+
+    /* ---------- GRILLE DE CARTES ---------- */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 26px;
     }
-    
+
     .card {
       background: white;
       border-radius: 24px;
@@ -103,12 +160,12 @@
       border: 1px solid #edf2f7;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    
+
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 16px 36px rgba(0,0,0,0.07);
     }
-    
+
     .card-image {
       width: 100%;
       height: 160px;
@@ -120,26 +177,34 @@
       justify-content: center;
       font-size: 48px;
     }
-    
+
     .card-title {
       font-size: 19px;
       font-weight: 700;
       color: #0f172a;
       margin-bottom: 4px;
     }
-    
+
     .card-location {
       font-size: 14px;
       color: #64748b;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
-    
+
+    .card-capacity {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .card-capacity i { color: #1877f2; margin-right: 4px; }
+
     .stars {
       color: #fbbf24;
       font-size: 18px;
       letter-spacing: 1px;
     }
-    
+
     .card-price {
       font-size: 16px;
       font-weight: 700;
@@ -147,15 +212,35 @@
       margin-top: 10px;
     }
 
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
     @media (max-width: 640px) {
       .category-header {
         flex-direction: column;
         text-align: center;
       }
-      
+
       .category-header h1 { font-size: 24px; }
-      
-      .filter-bar { padding: 12px 16px; }
+
+      .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-actions {
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
@@ -173,33 +258,90 @@
       <div class="badge">⭐ Top salles par wilaya</div>
     </div>
 
-    <div class="filter-bar">
-      <span style="font-weight: 600; color: #1e293b;">📍 Filtrer par wilaya :</span>
-      <button class="wilaya-btn active" data-wilaya="all">🏠 Toutes</button>
-      <button class="wilaya-btn" data-wilaya="Alger">Alger</button>
-      <button class="wilaya-btn" data-wilaya="Oran">Oran</button>
-      <button class="wilaya-btn" data-wilaya="Constantine">Constantine</button>
-      <button class="wilaya-btn" data-wilaya="Annaba">Annaba</button>
-      <button class="wilaya-btn" data-wilaya="Blida">Blida</button>
+    <!-- ---------- FILTRES ---------- -->
+    <div class="filters-panel">
+      <div class="filters-row">
+        <!-- Wilaya -->
+        <div class="filter-group">
+          <label for="filterWilaya"><i class="fas fa-location-dot"></i> Wilaya</label>
+          <select id="filterWilaya">
+            <option value="all">Toutes les wilayas</option>
+            <option value="Alger">Alger</option>
+            <option value="Oran">Oran</option>
+            <option value="Constantine">Constantine</option>
+            <option value="Annaba">Annaba</option>
+            <option value="Blida">Blida</option>
+          </select>
+        </div>
+
+        <!-- Prix -->
+        <div class="filter-group">
+          <label for="filterPrix"><i class="fas fa-tag"></i> Prix</label>
+          <select id="filterPrix">
+            <option value="all">Tous les prix</option>
+            <option value="0-40000">Moins de 40 000 DA</option>
+            <option value="40000-50000">40 000 – 50 000 DA</option>
+            <option value="50000-999999">Plus de 50 000 DA</option>
+          </select>
+        </div>
+
+        <!-- Capacité -->
+        <div class="filter-group">
+          <label for="filterCapacite"><i class="fas fa-users"></i> Capacité</label>
+          <select id="filterCapacite">
+            <option value="all">Toutes capacités</option>
+            <option value="0-100">Jusqu'à 100 pers.</option>
+            <option value="100-300">100 – 300 pers.</option>
+            <option value="300-9999">Plus de 300 pers.</option>
+          </select>
+        </div>
+
+        <!-- Note -->
+        <div class="filter-group">
+          <label for="filterNote"><i class="fas fa-star"></i> Note minimale</label>
+          <select id="filterNote">
+            <option value="0">Toutes les notes</option>
+            <option value="4.5">4.5 ★ et plus</option>
+            <option value="4.7">4.7 ★ et plus</option>
+            <option value="4.8">4.8 ★ et plus</option>
+          </select>
+        </div>
+
+        <!-- Bouton reset -->
+        <div class="filter-actions">
+          <button class="btn-reset" id="resetFilters">
+            <i class="fas fa-rotate-left"></i> Réinitialiser
+          </button>
+        </div>
+      </div>
     </div>
 
+    <!-- Compteur de résultats -->
+    <div class="results-count">
+      <span class="num" id="countNum">0</span>
+      <span id="countLabel">salles trouvées</span>
+    </div>
+
+    <!-- Grille -->
     <div class="grid" id="cardGrid"></div>
   </div>
 
   <script>
+    // ---------- DONNÉES ----------
     const salles = [
-      { id: 1, nom: "Le Palace", wilaya: "Alger", note: 4.9, avis: 124, image: "🏰", prix: "50 000 DA/jour" },
-      { id: 2, nom: "Espace El Djazair", wilaya: "Alger", note: 4.8, avis: 98, image: "🏛️", prix: "45 000 DA/jour" },
-      { id: 3, nom: "Salle des Fêtes", wilaya: "Alger", note: 4.7, avis: 76, image: "🎪", prix: "40 000 DA/jour" },
-      { id: 4, nom: "Le Méridien", wilaya: "Oran", note: 4.8, avis: 112, image: "🏨", prix: "55 000 DA/jour" },
-      { id: 5, nom: "Espace Ahlam", wilaya: "Oran", note: 4.6, avis: 89, image: "✨", prix: "42 000 DA/jour" },
-      { id: 6, nom: "Palais des Congrès", wilaya: "Constantine", note: 4.8, avis: 134, image: "🏰", prix: "60 000 DA/jour" },
-      { id: 7, nom: "Salle El Amane", wilaya: "Constantine", note: 4.7, avis: 65, image: "🎭", prix: "48 000 DA/jour" },
-      { id: 8, nom: "Le Majestic", wilaya: "Annaba", note: 4.6, avis: 72, image: "👑", prix: "50 000 DA/jour" },
-      { id: 9, nom: "Salle Royale", wilaya: "Blida", note: 4.7, avis: 43, image: "👸", prix: "44 000 DA/jour" },
-      { id: 10, nom: "Le Jardin", wilaya: "Blida", note: 4.5, avis: 201, image: "🌹", prix: "38 000 DA/jour" }
+      { id: 1,  nom: "Le Palace",           wilaya: "Alger",       note: 4.9, avis: 124, image: "🏰", prix: 50000, capacite: 500 },
+      { id: 2,  nom: "Espace El Djazair",   wilaya: "Alger",       note: 4.8, avis: 98,  image: "🏛️", prix: 45000, capacite: 350 },
+      { id: 3,  nom: "Salle des Fêtes",     wilaya: "Alger",       note: 4.7, avis: 76,  image: "🎪", prix: 40000, capacite: 200 },
+      { id: 4,  nom: "Le Méridien",         wilaya: "Oran",        note: 4.8, avis: 112, image: "🏨", prix: 55000, capacite: 600 },
+      { id: 5,  nom: "Espace Ahlam",        wilaya: "Oran",        note: 4.6, avis: 89,  image: "✨", prix: 42000, capacite: 180 },
+      { id: 6,  nom: "Palais des Congrès",  wilaya: "Constantine", note: 4.8, avis: 134, image: "🏰", prix: 60000, capacite: 800 },
+      { id: 7,  nom: "Salle El Amane",      wilaya: "Constantine", note: 4.7, avis: 65,  image: "🎭", prix: 48000, capacite: 250 },
+      { id: 8,  nom: "Le Majestic",         wilaya: "Annaba",      note: 4.6, avis: 72,  image: "👑", prix: 50000, capacite: 400 },
+      { id: 9,  nom: "Salle Royale",        wilaya: "Blida",       note: 4.7, avis: 43,  image: "👸", prix: 44000, capacite: 300 },
+      { id: 10, nom: "Le Jardin",           wilaya: "Blida",       note: 4.5, avis: 201, image: "🌹", prix: 38000, capacite: 120 }
     ];
 
+    // ---------- UTILITAIRES ----------
     function getStars(note) {
       const full = Math.floor(note);
       const half = (note - full) >= 0.5 ? 1 : 0;
@@ -207,13 +349,61 @@
       return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
     }
 
-    function renderCards(filterWilaya = 'all') {
-      const grid = document.getElementById('cardGrid');
-      let filtered = salles;
-      if (filterWilaya !== 'all') {
-        filtered = salles.filter(s => s.wilaya === filterWilaya);
-      }
+    function formatPrix(prix) {
+      return prix.toLocaleString('fr-FR') + ' DA/jour';
+    }
+
+    // ---------- RENDU ----------
+    function renderCards() {
+      const wilaya   = document.getElementById('filterWilaya').value;
+      const prix     = document.getElementById('filterPrix').value;
+      const capacite = document.getElementById('filterCapacite').value;
+      const noteMin  = parseFloat(document.getElementById('filterNote').value);
+
+      // Filtrer
+      let filtered = salles.filter(s => {
+        // Wilaya
+        if (wilaya !== 'all' && s.wilaya !== wilaya) return false;
+
+        // Prix
+        if (prix !== 'all') {
+          const [min, max] = prix.split('-').map(Number);
+          if (s.prix < min || s.prix > max) return false;
+        }
+
+        // Capacité
+        if (capacite !== 'all') {
+          const [minC, maxC] = capacite.split('-').map(Number);
+          if (s.capacite < minC || s.capacite > maxC) return false;
+        }
+
+        // Note
+        if (s.note < noteMin) return false;
+
+        return true;
+      });
+
+      // Trier par note décroissante
       filtered.sort((a, b) => b.note - a.note);
+
+      // Compteur
+      document.getElementById('countNum').textContent = filtered.length;
+      document.getElementById('countLabel').textContent =
+        filtered.length > 1 ? 'salles trouvées' : 'salle trouvée';
+
+      // Rendu
+      const grid = document.getElementById('cardGrid');
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-search"></i>
+            <h3>Aucune salle ne correspond à vos critères</h3>
+            <p>Essayez d'élargir vos filtres.</p>
+          </div>
+        `;
+        return;
+      }
 
       let html = '';
       filtered.forEach((s) => {
@@ -223,28 +413,37 @@
             <div class="card-image">${s.image}</div>
             <div class="card-title">${s.nom}</div>
             <div class="card-location">📍 ${s.wilaya}</div>
+            <div class="card-capacity">
+              <i class="fas fa-users"></i> ${s.capacite} personnes
+            </div>
             <div style="color: #fbbf24; font-size: 14px; margin-bottom: 6px;">
               <span class="stars">${starsStr}</span>
               <span style="color: #0f172a; font-weight: 700;">${s.note.toFixed(1)}</span>
               <span style="color: #94a3b8;">(${s.avis} avis)</span>
             </div>
-            <div class="card-price">${s.prix}</div>
+            <div class="card-price">${formatPrix(s.prix)}</div>
           </div>
         `;
       });
       grid.innerHTML = html;
     }
 
-    const wilayaBtns = document.querySelectorAll('.wilaya-btn');
-    wilayaBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        wilayaBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        renderCards(this.dataset.wilaya);
-      });
+    // ---------- ÉVÉNEMENTS ----------
+    document.getElementById('filterWilaya').addEventListener('change', renderCards);
+    document.getElementById('filterPrix').addEventListener('change', renderCards);
+    document.getElementById('filterCapacite').addEventListener('change', renderCards);
+    document.getElementById('filterNote').addEventListener('change', renderCards);
+
+    document.getElementById('resetFilters').addEventListener('click', () => {
+      document.getElementById('filterWilaya').value = 'all';
+      document.getElementById('filterPrix').value = 'all';
+      document.getElementById('filterCapacite').value = 'all';
+      document.getElementById('filterNote').value = '0';
+      renderCards();
     });
 
-    renderCards('all');
+    // Initialisation
+    renderCards();
   </script>
   <script src="../js/script.js"></script>
 </body>
