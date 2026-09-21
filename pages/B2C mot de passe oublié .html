@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    /* ---------- STYLES SPÉCIFIQUES À LA PAGE MOT DE PASSE OUBLIÉ ---------- */
+    /* ---------- BASE ---------- */
     body {
       background: #f6f9fc;
       min-height: 100vh;
@@ -42,14 +42,13 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
 
-    /* ---- LOGO : ALG dans cadre noir ---- */
     .logo {
       display: flex;
       align-items: center;
-      gap: 0;
       font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.5px;
+      text-decoration: none;
     }
 
     .logo .alg-wrapper {
@@ -65,17 +64,9 @@
     .logo .alg-wrapper .a { color: #31a24c; }
     .logo .alg-wrapper .l { color: #dc2626; }
     .logo .alg-wrapper .g { color: #ffffff; }
+    .logo .event { color: #1a1a2e; margin-left: 4px; }
 
-    .logo .event {
-      color: #1a1a2e;
-      margin-left: 4px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
 
     .header-actions .back-link {
       color: #1a1a2e;
@@ -90,13 +81,8 @@
       gap: 8px;
     }
 
-    .header-actions .back-link:hover {
-      background: #f0f2f5;
-    }
-
-    .header-actions .back-link i {
-      color: #1877f2;
-    }
+    .header-actions .back-link:hover { background: #f0f2f5; }
+    .header-actions .back-link i { color: #1877f2; }
 
     /* ---------- AUTH SHELL ---------- */
     .auth-shell {
@@ -108,11 +94,11 @@
     }
 
     .auth-box {
-      max-width: 420px;
+      max-width: 440px;
       width: 100%;
       background: #ffffff;
       border-radius: 32px;
-      padding: 32px 28px 36px;
+      padding: 36px 32px 40px;
       box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
       margin: 0 auto;
     }
@@ -127,36 +113,38 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 64px;
-      height: 64px;
-      background: #eef3ff;
+      width: 68px;
+      height: 68px;
+      background: linear-gradient(135deg, #eef3ff 0%, #dbeafe 100%);
       border-radius: 50%;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(24, 119, 242, 0.12);
     }
 
     .auth-head .icon-wrapper i {
-      font-size: 28px;
+      font-size: 30px;
       color: #1877f2;
     }
 
     .auth-head .eyebrow {
       display: inline-block;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       color: #1877f2;
       background: #eef3ff;
-      padding: 4px 16px;
+      padding: 5px 16px;
       border-radius: 20px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .auth-head h1 {
       font-size: 26px;
       font-weight: 800;
       color: #1a1a2e;
-      margin: 0 0 6px;
+      margin: 0 0 8px;
+      letter-spacing: -0.3px;
     }
 
     .auth-head .sub {
@@ -164,25 +152,26 @@
       font-size: 14px;
       font-weight: 500;
       margin: 0;
+      line-height: 1.5;
     }
 
     /* ---------- FORMULAIRE ---------- */
-    .field {
-      margin-bottom: 18px;
-    }
+    .field { margin-bottom: 18px; }
 
     .field label {
       display: block;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       color: #1f2937;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
-    .field label i {
-      color: #1877f2;
-      margin-right: 6px;
-      width: 18px;
+    .field label i { color: #1877f2; margin-right: 6px; }
+
+    .input-wrapper {
+      position: relative;
     }
 
     .field input {
@@ -190,10 +179,10 @@
       padding: 14px 16px;
       font-size: 15px;
       border: 2px solid #e5e7eb;
-      border-radius: 16px;
+      border-radius: 14px;
       background: #fafbfc;
       color: #1f2937;
-      transition: border 0.2s, box-shadow 0.2s;
+      transition: border 0.2s, box-shadow 0.2s, background 0.2s;
       font-family: 'Inter', -apple-system, sans-serif;
       box-sizing: border-box;
     }
@@ -201,13 +190,33 @@
     .field input:focus {
       border-color: #1877f2;
       outline: none;
+      background: #ffffff;
       box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.10);
     }
 
-    .field input::placeholder {
-      color: #9ca3af;
-      font-weight: 400;
+    .field input::placeholder { color: #9ca3af; font-weight: 400; }
+
+    /* État d'erreur */
+    .field input.error {
+      border-color: #dc2626;
+      background: #fef2f2;
     }
+
+    .field input.error:focus {
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
+    }
+
+    .field-error {
+      display: none;
+      font-size: 12px;
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 6px;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-error.visible { display: flex; }
 
     /* ---------- BOUTON ---------- */
     .btn-primary {
@@ -217,25 +226,30 @@
       border: none;
       border-radius: 60px;
       color: #fff;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
       box-shadow: 0 8px 24px rgba(24, 119, 242, 0.30);
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       font-family: 'Inter', -apple-system, sans-serif;
+      letter-spacing: 0.2px;
     }
 
-    .btn-primary:active {
-      transform: scale(0.97);
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: 0 12px 28px rgba(24, 119, 242, 0.40);
     }
 
-    .btn-primary i {
-      font-size: 18px;
+    .btn-primary:active:not(:disabled) { transform: scale(0.97); }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
     }
 
     /* ---------- MESSAGE DE CONFIRMATION ---------- */
@@ -244,13 +258,12 @@
       background: #f0fdf4;
       border: 1px solid #bbf7d0;
       border-radius: 16px;
-      padding: 16px 18px;
-      margin-top: 8px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      animation: fadeInUp 0.4s ease-out;
     }
 
-    .confirm-box.visible {
-      display: block;
-    }
+    .confirm-box.visible { display: block; }
 
     .confirm-box .confirm-title {
       font-size: 15px;
@@ -262,21 +275,47 @@
       margin: 0 0 6px;
     }
 
-    .confirm-box .confirm-title i {
-      font-size: 18px;
-    }
+    .confirm-box .confirm-title i { font-size: 18px; }
 
     .confirm-box .confirm-text {
       font-size: 13px;
       color: #166534;
-      margin: 0;
+      margin: 0 0 12px;
       line-height: 1.5;
+    }
+
+    .confirm-box .confirm-text strong { font-weight: 700; }
+
+    .resend-btn {
+      background: transparent;
+      border: 1.5px solid #166534;
+      color: #166534;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .resend-btn:hover:not(:disabled) {
+      background: #166534;
+      color: #ffffff;
+    }
+
+    .resend-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     /* ---------- LIENS ---------- */
     .auth-links {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 22px;
     }
 
     .auth-links a {
@@ -285,12 +324,12 @@
       font-weight: 600;
       font-size: 14px;
       transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .auth-links a:hover {
-      color: #0d5ac4;
-      text-decoration: underline;
-    }
+    .auth-links a:hover { color: #0d5ac4; text-decoration: underline; }
 
     .auth-divider {
       text-align: center;
@@ -308,10 +347,7 @@
       transition: color 0.2s;
     }
 
-    .auth-divider a:hover {
-      color: #0d5ac4;
-      text-decoration: underline;
-    }
+    .auth-divider a:hover { color: #0d5ac4; text-decoration: underline; }
 
     /* ---------- FOOTER ---------- */
     footer {
@@ -330,63 +366,41 @@
       color: #65676b;
       font-weight: 500;
       letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    footer .mono i {
-      margin: 0 4px;
-      color: #1877f2;
+    footer .mono i { color: #1877f2; }
+
+    /* ---------- ANIMATION ---------- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 768px) {
-      header {
-        padding: 12px 20px;
-        flex-direction: column;
-        gap: 12px;
-      }
-
+      header { padding: 12px 20px; flex-direction: column; gap: 12px; }
       .logo { font-size: 24px; }
       .logo .alg-wrapper { padding: 1px 5px; border-radius: 5px; }
-
-      .header-actions {
-        width: 100%;
-        justify-content: center;
-      }
-
+      .header-actions { width: 100%; justify-content: center; }
       .auth-shell { padding: 24px 16px; }
-      .auth-box { padding: 24px 20px 28px; }
+      .auth-box { padding: 28px 22px 32px; }
       .auth-head h1 { font-size: 22px; }
-
-      footer {
-        flex-direction: column;
-        text-align: center;
-        padding: 16px 20px;
-      }
+      footer { flex-direction: column; text-align: center; padding: 16px 20px; }
     }
 
     @media (max-width: 480px) {
-      .auth-box {
-        border-radius: 24px;
-        padding: 20px 16px 24px;
-      }
-
+      .auth-box { border-radius: 24px; padding: 24px 18px 28px; }
       .logo { font-size: 20px; }
       .logo .alg-wrapper { padding: 1px 4px; border-radius: 4px; }
-
       .auth-head h1 { font-size: 20px; }
-      .auth-head .icon-wrapper { width: 52px; height: 52px; }
-      .auth-head .icon-wrapper i { font-size: 22px; }
-
+      .auth-head .icon-wrapper { width: 56px; height: 56px; }
+      .auth-head .icon-wrapper i { font-size: 24px; }
       .field input { padding: 12px 14px; font-size: 14px; }
-
       .btn-primary { font-size: 15px; padding: 14px; }
-
       footer .mono { font-size: 11px; }
-    }
-
-    @media (max-width: 360px) {
-      .logo { font-size: 18px; }
-      .logo .alg-wrapper { padding: 0 3px; border-radius: 3px; }
     }
   </style>
 </head>
@@ -394,14 +408,14 @@
   <div class="center-wrap">
     <!-- HEADER -->
     <header>
-      <div class="logo">
+      <a href="../index.html" class="logo">
         <span class="alg-wrapper">
           <span class="a">A</span>
           <span class="l">L</span>
           <span class="g">G</span>
         </span>
         <span class="event">event</span>
-      </div>
+      </a>
       <div class="header-actions">
         <a href="connexion.html" class="back-link">
           <i class="fas fa-arrow-left"></i> Retour à la connexion
@@ -418,45 +432,57 @@
             <i class="fas fa-key"></i>
           </div>
           <span class="eyebrow">Réinitialisation</span>
-          <h1>Mot de passe oublié</h1>
-          <p class="sub">Indiquez l'e-mail de votre compte, nous vous enverrons un lien de réinitialisation.</p>
+          <h1>Mot de passe oublié ?</h1>
+          <p class="sub">
+            Pas de panique ! Entrez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+          </p>
         </div>
 
         <!-- Formulaire -->
-        <form id="reset-form">
+        <form id="reset-form" novalidate>
           <div class="field">
             <label for="email">
               <i class="fas fa-envelope"></i> Adresse e-mail
             </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="vous@exemple.com"
-              autocomplete="email"
-              required
-            />
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="vous@exemple.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="field-error" id="email-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>Veuillez saisir une adresse e-mail valide.</span>
+            </div>
           </div>
 
-          <button type="submit" class="btn-primary">
-            <i class="fas fa-paper-plane"></i> Envoyer le lien de réinitialisation
+          <button type="submit" class="btn-primary" id="submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            <span id="btn-text">Envoyer le lien</span>
           </button>
         </form>
 
         <!-- Message de confirmation -->
         <div class="confirm-box" id="confirm-msg">
           <p class="confirm-title">
-            <i class="fas fa-check-circle"></i> Lien envoyé !
+            <i class="fas fa-check-circle"></i> E-mail envoyé !
           </p>
           <p class="confirm-text">
-            Vérifiez votre boîte de réception — le lien reste valable <strong>30 minutes</strong>.
+            Si un compte existe pour <strong id="sent-email">cette adresse</strong>, vous recevrez un lien de réinitialisation dans quelques instants. Le lien reste valable <strong>30 minutes</strong>.
           </p>
+          <button type="button" class="resend-btn" id="resend-btn" disabled>
+            <i class="fas fa-redo"></i> Renvoyer dans <span id="resend-timer">45</span>s
+          </button>
         </div>
 
         <!-- Liens -->
         <div class="auth-links">
           <a href="connexion.html">
-            <i class="fas fa-arrow-right-to-bracket"></i> Se connecter
+            <i class="fas fa-arrow-right-to-bracket"></i> Retour à la connexion
           </a>
         </div>
 
@@ -479,10 +505,96 @@
   </div>
 
   <script>
-    document.getElementById('reset-form').addEventListener('submit', function (e) {
+    /* ---------- RÉFÉRENCES DOM ---------- */
+    const form       = document.getElementById('reset-form');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const submitBtn  = document.getElementById('submit-btn');
+    const btnText    = document.getElementById('btn-text');
+    const confirmBox = document.getElementById('confirm-msg');
+    const sentEmail  = document.getElementById('sent-email');
+    const resendBtn  = document.getElementById('resend-btn');
+    const resendTimer= document.getElementById('resend-timer');
+
+    /* ---------- VALIDATION E-MAIL ---------- */
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateEmail(value) {
+      return emailRegex.test(value.trim());
+    }
+
+    emailInput.addEventListener('input', function () {
+      if (this.value && !validateEmail(this.value)) {
+        this.classList.add('error');
+        emailError.classList.add('visible');
+      } else {
+        this.classList.remove('error');
+        emailError.classList.remove('visible');
+      }
+    });
+
+    /* ---------- SOUMISSION DU FORMULAIRE ---------- */
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      this.style.display = 'none';
-      document.getElementById('confirm-msg').classList.add('visible');
+
+      const email = emailInput.value.trim();
+
+      // Validation
+      if (!email || !validateEmail(email)) {
+        emailInput.classList.add('error');
+        emailError.classList.add('visible');
+        emailInput.focus();
+        return;
+      }
+
+      // Simulation d'envoi
+      submitBtn.disabled = true;
+      btnText.textContent = 'Envoi en cours...';
+      submitBtn.querySelector('i').className = 'fas fa-spinner fa-spin';
+
+      setTimeout(() => {
+        // Masquer le formulaire, afficher la confirmation
+        form.style.display = 'none';
+        confirmBox.classList.add('visible');
+        sentEmail.textContent = email;
+
+        // Démarrer le compte à rebours
+        startResendTimer(45);
+      }, 1200);
+    });
+
+    /* ---------- COMPTE À REBOURS POUR LE RENVOI ---------- */
+    let resendInterval = null;
+
+    function startResendTimer(seconds) {
+      let remaining = seconds;
+      resendBtn.disabled = true;
+      resendTimer.textContent = remaining;
+
+      clearInterval(resendInterval);
+      resendInterval = setInterval(() => {
+        remaining--;
+        resendTimer.textContent = remaining;
+
+        if (remaining <= 0) {
+          clearInterval(resendInterval);
+          resendBtn.disabled = false;
+          resendBtn.innerHTML = '<i class="fas fa-redo"></i> Renvoyer l\'e-mail';
+        }
+      }, 1000);
+    }
+
+    /* ---------- RENVOI DE L'E-MAIL ---------- */
+    resendBtn.addEventListener('click', function () {
+      if (this.disabled) return;
+
+      // Animation visuelle
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+      this.disabled = true;
+
+      setTimeout(() => {
+        startResendTimer(45);
+      }, 800);
     });
   </script>
   <script src="../js/script.js"></script>
