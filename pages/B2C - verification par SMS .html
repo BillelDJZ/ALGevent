@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Confirmation par SMS · ALGevent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ---------- BASE ---------- */
+    body {
+      background: #f6f9fc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .center-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #ffffff;
+      border-bottom: 1px solid #eef2f6;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .logo .alg-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a2e;
+      padding: 2px 6px;
+      border-radius: 6px;
+      gap: 1px;
+    }
+
+    .logo .alg-wrapper .a { color: #31a24c; }
+    .logo .alg-wrapper .l { color: #dc2626; }
+    .logo .alg-wrapper .g { color: #ffffff; }
+    .logo .event { color: #1a1a2e; margin-left: 4px; }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+
+    .header-actions .back-link {
+      color: #1a1a2e;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-actions .back-link:hover { background: #f0f2f5; }
+    .header-actions .back-link i { color: #1877f2; }
+
+    /* ---------- AUTH SHELL ---------- */
+    .auth-shell {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .auth-box {
+      max-width: 440px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 36px 32px 40px;
+      box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+      margin: 0 auto;
+    }
+
+    /* ---------- AUTH HEAD ---------- */
+    .auth-head {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .auth-head .icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      background: linear-gradient(135deg, #eef3ff 0%, #dbeafe 100%);
+      border-radius: 50%;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(24, 119, 242, 0.12);
+    }
+
+    .auth-head .icon-wrapper i {
+      font-size: 30px;
+      color: #1877f2;
+    }
+
+    .auth-head .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #1877f2;
+      background: #eef3ff;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .auth-head h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin: 0 0 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .auth-head .sub {
+      color: #65676b;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .auth-head .sub strong {
+      color: #1877f2;
+      font-weight: 700;
+    }
+
+    /* ---------- OTP ---------- */
+    .otp-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 24px 0 16px;
+    }
+
+    .otp-row input {
+      width: 52px;
+      height: 62px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a2e;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fafbfc;
+      transition: border 0.2s, box-shadow 0.2s, background 0.2s, transform 0.15s;
+      font-family: 'Inter', -apple-system, sans-serif;
+      box-sizing: border-box;
+      caret-color: #1877f2;
+    }
+
+    .otp-row input:focus {
+      border-color: #1877f2;
+      outline: none;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.10);
+      transform: translateY(-2px);
+    }
+
+    .otp-row input.filled {
+      border-color: #1877f2;
+      background: #eef3ff;
+      color: #1877f2;
+    }
+
+    .otp-row.error input {
+      border-color: #dc2626;
+      background: #fef2f2;
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* ---------- HINT / RESEND ---------- */
+    .field-hint {
+      text-align: center;
+      font-size: 13px;
+      color: #65676b;
+      margin: 16px 0 20px;
+      font-weight: 500;
+    }
+
+    .field-hint a {
+      color: #1877f2;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .field-hint a:hover { color: #0d5ac4; text-decoration: underline; }
+
+    .field-hint a.disabled {
+      color: #9ca3af;
+      pointer-events: none;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ---------- BOUTON ---------- */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ac4 100%);
+      border: none;
+      border-radius: 60px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 8px 24px rgba(24, 119, 242, 0.30);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: 0 12px 28px rgba(24, 119, 242, 0.40);
+    }
+
+    .btn-primary:active:not(:disabled) { transform: scale(0.97); }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.15);
+    }
+
+    /* ---------- MESSAGE DE SUCCÈS ---------- */
+    .success-box {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 16px;
+      text-align: center;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .success-box.visible { display: block; }
+
+    .success-box .success-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: #dcfce7;
+      border-radius: 50%;
+      margin-bottom: 12px;
+    }
+
+    .success-box .success-icon i {
+      font-size: 26px;
+      color: #16a34a;
+    }
+
+    .success-box h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #166534;
+      margin: 0 0 6px;
+    }
+
+    .success-box p {
+      font-size: 13px;
+      color: #166534;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- TICKET STUB (décor) ---------- */
+    .perforation {
+      border-top: 2px dashed #e4e6eb;
+      margin: 28px 0 14px;
+    }
+
+    .ticket-stub-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #b0b3b8;
+      text-transform: uppercase;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 20px 32px;
+      border-top: 1px solid #eef2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+    }
+
+    footer .mono {
+      font-size: 13px;
+      color: #65676b;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    footer .mono i { color: #1877f2; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      header { padding: 12px 20px; flex-direction: column; gap: 12px; }
+      .logo { font-size: 24px; }
+      .logo .alg-wrapper { padding: 1px 5px; border-radius: 5px; }
+      .header-actions { width: 100%; justify-content: center; }
+      .auth-shell { padding: 24px 16px; }
+      .auth-box { padding: 28px 22px 32px; }
+      .auth-head h1 { font-size: 22px; }
+      footer { flex-direction: column; text-align: center; padding: 16px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .auth-box { border-radius: 24px; padding: 24px 18px 28px; }
+      .logo { font-size: 20px; }
+      .logo .alg-wrapper { padding: 1px 4px; border-radius: 4px; }
+      .auth-head h1 { font-size: 20px; }
+      .auth-head .icon-wrapper { width: 56px; height: 56px; }
+      .auth-head .icon-wrapper i { font-size: 24px; }
+      .otp-row { gap: 6px; }
+      .otp-row input { width: 44px; height: 54px; font-size: 20px; border-radius: 12px; }
+      .btn-primary { font-size: 15px; padding: 14px; }
+      footer .mono { font-size: 11px; }
+    }
+
+    @media (max-width: 360px) {
+      .logo { font-size: 18px; }
+      .otp-row input { width: 40px; height: 48px; font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="center-wrap">
+    <!-- HEADER -->
+    <header>
+      <a href="../index.html" class="logo">
+        <span class="alg-wrapper">
+          <span class="a">A</span>
+          <span class="l">L</span>
+          <span class="g">G</span>
+        </span>
+        <span class="event">event</span>
+      </a>
+      <div class="header-actions">
+        <a href="connexion.html" class="back-link">
+          <i class="fas fa-arrow-left"></i> Retour à la connexion
+        </a>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="auth-shell">
+      <div class="auth-box">
+        <!-- En-tête -->
+        <div class="auth-head">
+          <div class="icon-wrapper">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <span class="eyebrow">Vérification</span>
+          <h1>Confirmez votre numéro</h1>
+          <p class="sub">
+            Un code à 6 chiffres a été envoyé par SMS au
+            <strong id="phone-number">06 •• •• •• 12</strong>.
+          </p>
+        </div>
+
+        <!-- Formulaire OTP -->
+        <form id="otp-form" novalidate>
+          <div class="otp-row" id="otp-row">
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 1" />
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 2" />
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 3" />
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 4" />
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 5" />
+            <input type="text" inputmode="numeric" maxlength="1" aria-label="Chiffre 6" />
+          </div>
+
+          <p class="field-hint">
+            Code non reçu ?
+            <a href="#" id="resend-link" class="disabled">
+              Renvoyer dans <span id="countdown">00:45</span>
+            </a>
+          </p>
+
+          <button type="submit" class="btn-primary" id="submit-btn">
+            <i class="fas fa-check-circle"></i>
+            <span id="btn-text">Valider le code</span>
+          </button>
+        </form>
+
+        <!-- Message de succès -->
+        <div class="success-box" id="success-box">
+          <div class="success-icon">
+            <i class="fas fa-check"></i>
+          </div>
+          <h3>Numéro confirmé !</h3>
+          <p>Redirection en cours vers votre espace...</p>
+        </div>
+
+        <!-- Décor -->
+        <div class="perforation"></div>
+        <div class="ticket-stub-row">
+          <span>ALGEVENT · SÉCURITÉ</span>
+          <span>VÉRIF. SMS</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="mono">
+        <i class="fas fa-calendar-check"></i> ALGEVENT — © 2026
+      </span>
+      <span class="mono">
+        <i class="fas fa-shield-alt"></i> Connexion sécurisée
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    /* ---------- RÉFÉRENCES ---------- */
+    const inputs    = Array.from(document.querySelectorAll('#otp-row input'));
+    const otpRow    = document.getElementById('otp-row');
+    const form      = document.getElementById('otp-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText   = document.getElementById('btn-text');
+    const successBox= document.getElementById('success-box');
+    const countdownEl = document.getElementById('countdown');
+    const resendLink  = document.getElementById('resend-link');
+
+    /* ---------- SAISIE OTP ---------- */
+    inputs.forEach((input, i) => {
+      // Accepter uniquement les chiffres
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9]/g, '');
+        input.classList.toggle('filled', input.value !== '');
+        otpRow.classList.remove('error');
+
+        if (input.value && i < inputs.length - 1) {
+          inputs[i + 1].focus();
+        }
+
+        // Auto-submit quand les 6 chiffres sont saisis
+        if (i === inputs.length - 1 && input.value && inputs.every(inp => inp.value)) {
+          setTimeout(() => form.requestSubmit(), 200);
+        }
+      });
+
+      // Backspace : revenir au champ précédent
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && i > 0) {
+          inputs[i - 1].focus();
+          inputs[i - 1].value = '';
+          inputs[i - 1].classList.remove('filled');
+        }
+      });
+
+      // Coller un code complet
+      input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        const digits = pasted.replace(/[^0-9]/g, '').slice(0, 6).split('');
+
+        digits.forEach((d, idx) => {
+          if (inputs[idx]) {
+            inputs[idx].value = d;
+            inputs[idx].classList.add('filled');
+          }
+        });
+
+        const nextIndex = Math.min(digits.length, inputs.length - 1);
+        inputs[nextIndex].focus();
+
+        if (digits.length === 6) {
+          setTimeout(() => form.requestSubmit(), 200);
+        }
+      });
+    });
+
+    /* ---------- SOUMISSION ---------- */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const code = inputs.map(inp => inp.value).join('');
+
+      if (code.length !== 6) {
+        otpRow.classList.add('error');
+        const firstEmpty = inputs.find(inp => !inp.value);
+        if (firstEmpty) firstEmpty.focus();
+        return;
+      }
+
+      // État de chargement
+      submitBtn.disabled = true;
+      btnText.textContent = 'Vérification...';
+      submitBtn.querySelector('i').className = 'fas fa-spinner fa-spin';
+
+      // Simulation de vérification
+      setTimeout(() => {
+        form.style.display = 'none';
+        successBox.classList.add('visible');
+
+        // Redirection après 1,5s
+        setTimeout(() => {
+          window.location.href = 'accueil-client.html';
+        }, 1500);
+      }, 1200);
+    });
+
+    /* ---------- COMPTE À REBOURS ---------- */
+    let seconds = 45;
+    const timer = setInterval(() => {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        countdownEl.parentElement.textContent = '';
+        resendLink.textContent = 'Renvoyer le code';
+        resendLink.classList.remove('disabled');
+      } else {
+        const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const s = String(seconds % 60).padStart(2, '0');
+        countdownEl.textContent = m + ':' + s;
+      }
+    }, 1000);
+
+    /* ---------- RENVOI DU CODE ---------- */
+    resendLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (this.classList.contains('disabled')) return;
+
+      // Reset visuel
+      this.classList.add('disabled');
+      this.innerHTML = 'Renvoyer dans <span id="countdown">00:45</span>';
+
+      // Reset des champs
+      inputs.forEach(inp => {
+        inp.value = '';
+        inp.classList.remove('filled');
+      });
+      inputs[0].focus();
+
+      // Nouveau compte à rebours
+      let s = 45;
+      const newCountdown = document.getElementById('countdown');
+      const newTimer = setInterval(() => {
+        s--;
+        if (s <= 0) {
+          clearInterval(newTimer);
+          this.innerHTML = 'Renvoyer le code';
+          this.classList.remove('disabled');
+        } else {
+          const m = String(Math.floor(s / 60)).padStart(2, '0');
+          const sec = String(s % 60).padStart(2, '0');
+          newCountdown.textContent = m + ':' + sec;
+        }
+      }, 1000);
+    });
+  </script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
